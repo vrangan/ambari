@@ -12,9 +12,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>oozie-ambari-view</artifactId>
-	<version>0.0.0.1-SNAPSHOT</version>
-	<name>Oozie Ambari View</name>
+	<artifactId>wfmanager</artifactId>
+	<version>0.1.0.0-SNAPSHOT</version>
+	<name>WF Manager View</name>
 	<parent>
 		<groupId>org.apache.ambari.contrib.views</groupId>
 		<artifactId>ambari-contrib-views</artifactId>
