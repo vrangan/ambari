@@ -39,9 +39,8 @@
       {{#if workflowXmlPath}}
 
         <div class="col-xs-6 padding20">
-              <label class="control-label"> path is </label>
-
-            {{workflowXmlPath}}
+              <label class="control-label">Workflow Path:</label>
+              {{workflowXmlPath}}
           <!--<button class="btn btn-default btn-sm title-btn">{{!-- <i class="fa fa-edit"></i> --}} <strong id="wf_title" class="editable" contenteditable="true">WorkflowTitle</strong></button>-->
         </div>
       {{/if}}
@@ -53,16 +52,16 @@
         <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#kill-node-dialog" title="Create Kill Node" {{action "showCreateKillNode" true}}>
             <i class="fa fa-ban"></i>
         </button>
-        <button  type="button" class="btn btn-default" title="Import workflow Test" {{action "importWorkflowTest"}}>
+        <button  id="import-workflow-test" type="button" class="btn btn-default hide" title="Import workflow Test" {{action "importWorkflowTest"}}>
             <i class="fa fa-download"></i>
         </button>
         <button  type="button" class="btn btn-default" title="Import workflow" {{action "showFileBrowser"}}>
             <i class="fa fa-download"></i>
         </button>
-        <button type="button" class="btn btn-default" title="Set Global Configurations" {{action "showWorkflowGlobalProps"}}>
+        <button type="button" class="btn btn-default" title="Global Configurations" {{action "showWorkflowGlobalProps"}}>
           g<i class="fa fa-cog"></i>
         </button>
-        <button type="button" class="btn btn-default" title="Set Workflow Version" {{action "showVersionSettings" true}}>
+        <button type="button" class="btn btn-default" title="Workflow and Action Versions" {{action "showVersionSettings" true}}>
           v<i class="fa fa-cog"></i>
         </button>
         <button  data-toggle="modal" data-target="#previewModal"  type="button" class="btn btn-default" title="Preview workflow" {{action "previewWorkflow"}}>
@@ -141,7 +140,7 @@
   {{workflow-action-editor actionType=currentAction closeActionEditor="closeActionEditor" addKillNode="addKillNode" actionModel=currentNode.domain nodeType=currentNode.type currentNode=currentNode killNodes=workflow.killNodes}}
 {{/if}}
 {{#if showingWorkflowConfigProps}}
-  {{workflow-config closeWorkflowSubmitConfigs="closeWorkflowSubmitConfigs" openFileBrowser="openFileBrowser" closeFileBrowser="closeFileBrowser" workflowSubmitConfigs=workflowSubmitConfigs}}
+  {{workflow-config closeWorkflowSubmitConfigs="closeWorkflowSubmitConfigs" workflowFilePath=workflowFilePath openFileBrowser="openFileBrowser" closeFileBrowser="closeFileBrowser" workflowSubmitConfigs=workflowSubmitConfigs}}
 {{/if}}
 {{#if showGlobalConfig}}
   {{#global-config closeGlobalConfig="closeWorkflowGlobalProps" saveGlobalConfig="saveGlobalConfig" actionModel=globalConfig}}{{/global-config}}

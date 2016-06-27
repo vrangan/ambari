@@ -21,7 +21,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Action Settings</h4>
+        <h4 class="modal-title">Submit Workflow</h4>
       </div>
       <div class="modal-body">
         <div>
@@ -40,7 +40,7 @@
               </div>
               <div class="col-xs-8">
                 <div class="input-group">
-                  {{input class="form-control" type="text"  value=workflowFilePath validations="required" }}
+                  {{input class="form-control" type="text"  value=workflowFilePath}}
                   <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" {{action "selectWorflowFile"}}>Browse</button>
                 </span>

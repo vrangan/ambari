@@ -37,23 +37,24 @@
       </div>
     </div>
     <div class="node_actions node_left">
+      <i class="fa fa-code-fork" title="Add condition" {{action "showAddBranch"}}></i>
       <i class="fa fa-cog node_properties" title="Edit" {{action "openEditor"}}></i>
       <i class="fa fa-trash-o" title="Delete" {{action "deleteNode"}}></i>
     </div>
     <!-- {{! <div class="node_actions node_bottom decisionSplit">
       <i class="fa fa-plus" {{action "addBranch"}}></i>
     </div>}}-->
-     <div class="node_bottom_actions node_bottom decisionSplit">
-            <i class="fa fa-plus" title="Add condition" {{action "showAddBranch"}}></i>
-      </div>
+     <!-- <div class="node_bottom_actions node_bottom decisionSplit">
+
+      </div> -->
 
   {{else if (eq node.type 'fork')}}
     <div class="node_actions node_left forkAction">
+      <i class="fa fa-code-fork" title="Add Branch" {{action "addBranch"}}></i>
       <i class="fa fa-trash-o" title="Delete" {{action "deleteNode"}}></i>
     </div>
-    <div class="node_bottom_actions node_bottom forkSplit">
-      <i class="fa fa-plus" title="Add Branch" {{action "addBranch"}}></i>
-    </div>
+    <!-- <div class="node_bottom_actions node_bottom forkSplit">
+    </div> -->
   {{else if (eq node.type 'action')}}
     <div class="node_actions node_left">
       <i class="fa fa-cog node_properties" title="Edit" {{action "openEditor"}}></i>

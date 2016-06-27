@@ -355,6 +355,7 @@ export default Ember.Component.extend(EmberValidations,{
   resetDesigner(){
     this.set('errors',{});
     this.set('validationErrors',{});
+    this.set('workflowFilePath',"");  
     this.get("workflow").resetWorfklow();
     this.set('globalConfig', {});
     this.designerPlumb.reset();
@@ -433,6 +434,7 @@ export default Ember.Component.extend(EmberValidations,{
         this.get("workflow").deleteNode(node);
       }
       this.rerender();
+      this.doValidation();
     },
     openEditor(node){
       this.set('showActionEditor', true);

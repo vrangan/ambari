@@ -50,7 +50,6 @@ export default Ember.Component.extend({
   showingFileBrowser: false,
   workflowXml:"",
   workflowName: "",
-  workflowFilePath:"",
   overwriteWorkflowPath: false,
   configMap : Ember.A([]),
   configPropsExists: false,

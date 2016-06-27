@@ -19,15 +19,15 @@ import Ember from 'ember';
 import EmberValidations from 'ember-validations';
 export default Ember.Component.extend(EmberValidations, Ember.Evented,{
     actionIcons : {
-      "hive": "cog",
-      "hive2": "cog",
+      "hive": "server",
+      "hive2": "server",
       "pig": "product-hunt",
       "sqoop": "database",
       "hdfs": "copy",
       "java": "code",
       "shell": "terminal",
       "distcp": "clone",
-      "map-reduce": "asterisk",
+      "map-reduce": "cubes",
       "spark": "star",
       "ssh": "terminal",
       "SWF":"product-hunt",
