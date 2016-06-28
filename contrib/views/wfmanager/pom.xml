@@ -102,23 +102,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.ambari.contrib.views</groupId>
-			<artifactId>ambari-views-utils</artifactId>
-			<version>2.0.0.0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 	<properties>
 		<uicode.dir>../</uicode.dir>
 		<checkstyle.skip>true</checkstyle.skip>
+                <ambari.dir>${project.parent.parent.parent.basedir}</ambari.dir>
+                <ui.directory>${basedir}/src/main/resources/ui</ui.directory>
 	</properties>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.0</version>
+				<version>0.0.16</version>
 				<configuration>
 					<nodeVersion>v0.12.2</nodeVersion>
 					<npmVersion>1.4.8</npmVersion>
@@ -144,9 +140,16 @@
 								--unsafe-perm</arguments>
 						</configuration>
 					</execution>
+				</executions>
+				</plugin>
+                                <plugin>
+                                   <artifactId>exec-maven-plugin</artifactId>
+                                    <groupId>org.codehaus.mojo</groupId>
+                                    <version>1.3.2</version>
+                                     <executions>
 					<execution>
 						<id>Bower install</id>
-						<phase>generate-resources</phase>
+						<phase>generate-sources</phase>
 						<goals>
 						  <goal>exec</goal>
 						</goals>
@@ -160,13 +163,6 @@
 						  </arguments>
 						</configuration>
 					  </execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>exec-maven-plugin</artifactId>
-				<groupId>org.codehaus.mojo</groupId>
-				<version>1.3.2</version>
-				<executions>
 					<execution>
 						<id>Files build</id>
 						<phase>generate-sources</phase>
@@ -236,4 +232,30 @@
 			</resource>
 		</resources>
 	</build>
+    <profiles>
+      <profile>
+        <id>windows</id>
+        <activation>
+          <os>
+            <family>win</family>
+          </os>
+        </activation>
+        <properties>
+          <node.executable>node.exe</node.executable>
+          <skip.nodegyp.chmod>true</skip.nodegyp.chmod>
+        </properties>
+      </profile>
+      <profile>
+        <id>linux</id>
+        <activation>
+          <os>
+            <family>unix</family>
+          </os>
+        </activation>
+        <properties>
+          <node.executable>node</node.executable>
+          <skip.nodegyp.chmod>false</skip.nodegyp.chmod>
+        </properties>
+      </profile>
+    </profiles>
 </project>
