@@ -1125,7 +1125,7 @@ input:invalid {
       margin-top: -4px;
 }
 .backto-dashboard{
-  font-size: 13px;
+  text-decoration: blink !important;
 }
 .file-upload-control input[type="file"]{
   width: 200px;

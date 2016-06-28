@@ -17,23 +17,18 @@
 }}
 <div id="job-details" class="panel panel-default">
   <div class="panel-heading">
-    {{#if from}}
-    <div class="pull-left">
-      <div class="btn-group">
-        <button class="btn back_button pointer" {{action 'back'}}><i class="fa fa-angle-double-left"></i>&nbsp;Back&nbsp;</button>
-        <button class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="caret"></span>
-        </button>
-        <div class="dropdown-menu">
-          {{#link-to 'dashboard'}}<i class="fa fa-angle-double-left"></i> Back to Dashboard{{/link-to}}
-        </div>
-      </div>
+    <div class="pull-right">
+      {{#if from}}
+      <button type="button" class="btn btn-default" title="Back" {{action 'back'}}>
+          <i class="fa fa-arrow-left"></i>
+      </button>
+      {{/if}}
+      {{#link-to 'dashboard' class="backto-dashboard"}}
+      <button type="button" class="btn btn-default" title="Workflow Dashboard">
+          <i class="fa fa-th"></i>
+      </button>
+      {{/link-to}}
     </div>
-    {{else}}
-    <div class="pull-left">
-      <div class="back_button">{{#link-to 'dashboard'}} <i class="fa fa-angle-double-left"></i> Back to Dashboard{{/link-to}}</div>
-    </div>
-    {{/if}}
     <div class="pull-left">
       <span class="jobTitle">{{displayType}} Job : {{name}} </span>
       <span class="fa fa-refresh fa-1 pointer btn btn-default" title="Refresh" {{action 'doRefresh'}} aria-hidden="true"></span>

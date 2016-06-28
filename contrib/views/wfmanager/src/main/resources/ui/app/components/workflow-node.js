@@ -30,7 +30,7 @@ export default Ember.Component.extend(Ember.Evented,{
       "map-reduce": "cubes",
       "spark": "star",
       "ssh": "terminal",
-      "SWF":"product-hunt",
+      "sub-workflow":"share-alt-square",
       "stream": "exchange",
       "email": "envelop"
   },

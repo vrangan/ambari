@@ -26,8 +26,6 @@
         Designer
         </div>
          --}}
-         <div class="col-xs-6">{{#link-to 'dashboard' class="backto-dashboard"}} <i class="fa fa-angle-double-left"></i> Back to Dashboard{{/link-to}}
-         </div>
         <div class="col-xs-6">
             {{input class="form-control" type="text" id="wf_title" value=workflow.name title="Workflow Title" placeholder="Workflow Title"}}
           <!--<button class="btn btn-default btn-sm title-btn">{{!-- <i class="fa fa-edit"></i> --}} <strong id="wf_title" class="editable" contenteditable="true">WorkflowTitle</strong></button>-->
@@ -73,6 +71,11 @@
         <button type="button" class="btn btn-primary" title="Submit workflow" {{action "submitWorkflow"}}>
             <i class="fa fa-upload"></i>
         </button>
+        {{#link-to 'dashboard' class="backto-dashboard"}}
+        <button type="button" class="btn btn-default" title="Workflow Dashboard">
+            <i class="fa fa-th"></i>
+        </button>
+        {{/link-to}}
 		{{!--
         <button id="download" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
             <i class="fa fa-download"></i>
