@@ -44,6 +44,7 @@ export default Ember.Route.extend({
           response = JSON.parse(response);
       }
       response.jobType = params.jobType;
+      response.conf = vkbeautify.xml(response.conf);
       return response;
     });
   },

@@ -78,7 +78,8 @@ export default Ember.Component.extend({
     },
     getJobDefinition : function () {
      Ember.$.get(Ember.ENV.API_URL+'/v2/job/'+this.get('id')+'?show=definition&timezone=GMT',function(response){
-       this.set('model.jobDefinition', (new XMLSerializer()).serializeToString(response).trim());
+       var xml = (new XMLSerializer()).serializeToString(response).trim();
+       this.set('model.jobDefinition', vkbeautify.xml(xml));
      }.bind(this)).fail(function(error){
        this.set('error',error);
      }.bind(this));
