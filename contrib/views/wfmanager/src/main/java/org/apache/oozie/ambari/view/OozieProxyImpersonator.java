@@ -271,7 +271,7 @@ public class OozieProxyImpersonator {
 	private String submitWorkflowJobToOozie(HttpHeaders headers,
 			String filePath, MultivaluedMap<String, String> queryParams)
 			throws Exception {
-		String nameNode = "hdfs://"+ambariApi.getCluster().getConfigurationValue(
+		String nameNode = "hdfs://"+ viewContext.getCluster().getConfigurationValue(
 				"hdfs-site", "dfs.namenode.rpc-address");
 		
 		if (!queryParams.containsKey("config.nameNode")) {
@@ -282,7 +282,7 @@ public class OozieProxyImpersonator {
 		}
 		if (!queryParams.containsKey("config.jobTracker")) {
 			ArrayList<String> jobTrackerNodes = new ArrayList<String>();
-			String jobTrackerNode = ambariApi.getCluster().getConfigurationValue(
+			String jobTrackerNode = viewContext.getCluster().getConfigurationValue(
 					"yarn-site", "yarn.resourcemanager.address");
 			LOGGER.info("jobTrackerNode===" + jobTrackerNode);
 			jobTrackerNodes.add(jobTrackerNode);

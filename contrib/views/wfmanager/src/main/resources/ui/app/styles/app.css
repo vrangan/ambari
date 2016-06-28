@@ -55,7 +55,7 @@ body {
 }
 #header {
     white-space: nowrap;
-    background: #377CA5 url("logo.png") no-repeat;
+    background: #5bb75b;
     background-position: 10px;
     color: yellow;
     height: 50px;
@@ -735,11 +735,20 @@ input:invalid {
 #action_properties_dialog .panel-default > .panel-heading,
 #global_properties_dialog .panel-default > .panel-heading,
 #configureWorkfowModal .panel-default > .panel-heading,
- .whiteLabel {
-    background-color: #377CA5;
+ .whiteLabel, .whiteLabel:hover, .whiteLabel:focus, .whiteLabel:visited, .whiteLabel:active {
+    background-color: #5bb75b;
     color: #fff;
 }
-
+.btn-primary{
+    background-color: #5bb75b;
+    border-color: #5bb75b;
+    color: #fff;
+}
+.btn-primary:hover{
+    background-color: #5bb75b;
+    border-color: #5bb75b;
+    color: #fff;
+}
 ._actions_popup {
     padding: 4px;
 }

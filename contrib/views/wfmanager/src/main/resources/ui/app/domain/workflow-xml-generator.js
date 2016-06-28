@@ -51,7 +51,7 @@ var WorkflowGenerator= Ember.Object.extend({
     targetWorkflowApp["_name"]=this.workflow.get("name");
     this.copyProp(srcWorkflowApp,targetWorkflowApp,["global","start","decision","fork","join","action","kill","end"]);
     targetWorkflowApp["_xmlns"]="uri:oozie:workflow:"+this.workflow.get("schemaVersions").getCurrentWorkflowVersion();
-    targetWorkflowApp["__cdata"]=Constants.generatedByCdata;
+   // targetWorkflowApp["__cdata"]=Constants.generatedByCdata;
     var xmlAsStr = this.get("x2js").json2xml_str(reordered);
     console.log("Generated Workflow XML==",xmlAsStr);
     return xmlAsStr;
