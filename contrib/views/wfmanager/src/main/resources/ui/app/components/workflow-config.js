@@ -39,7 +39,7 @@ export default Ember.Component.extend({
         {displayName: 'Use System LibPath', name :'useSystemLibPath', value:true},
         {displayName: 'Rerun on Failure',name : 'rerunOnFailure', value:true}
       ]);
-
+      this.set('filePath', Ember.copy(this.get('workflowFilePath')));
   }.on('init'),
   rendered : function(){
     this.$("#configureWorkfowModal").on('hidden.bs.modal', function () {
@@ -58,6 +58,7 @@ export default Ember.Component.extend({
   alertType: "",
   alertMessage:"",
   alertDetails:"",
+  filePath : "",
   showNotification(data){
       if (!data){
         return;
@@ -74,8 +75,9 @@ export default Ember.Component.extend({
   submitWorkflow(){
     var self=this;
   //  var submitConfigs=this.get("workflowSubmitConfigs");
-    var url = Ember.ENV.API_URL + "/submitWorkflow?app.path=" +this.get("workflowFilePath")+"&overwrite="+this.get("overwriteWorkflowPath");
-    if (this.get("workflowFilePath").trim()===""){//TODO later proper validations.
+    this.set('workflowFilePath', Ember.copy(this.get('filePath')));
+    var url = Ember.ENV.API_URL + "/submitWorkflow?app.path=" +this.get("filePath")+"&overwrite="+this.get("overwriteWorkflowPath");
+    if (this.get("filePath").trim()===""){//TODO later proper validations.
       self.showNotification({
           "type": "error",
           "message": "Workflow File Path cannot be empty"

@@ -40,7 +40,7 @@
               </div>
               <div class="col-xs-8">
                 <div class="input-group">
-                  {{input class="form-control" type="text"  value=workflowFilePath}}
+                  {{input class="form-control" type="text"  value=filePath}}
                   <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" {{action "selectWorflowFile"}}>Browse</button>
                 </span>
@@ -96,12 +96,12 @@
         {{#if startingInProgress}}
           <span class="pull-left">Starting Workflow</span>{{spin-spinner lines=8 length=5 width=3 radius=5 top=320 left=425}}
         {{/if}}
-        <button type="button" class="btn btn-primary" {{action "save"}}>Save</button>
+        <button type="button" class="btn btn-primary" {{action "save"}}>Submit</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 {{#if showingFileBrowser}}
-{{hdfs-browser closeFileBrowser="closeFileBrowser" selectFileCallback=selectFileCallback filePath=workflowFilePath}}
+{{hdfs-browser closeFileBrowser="closeFileBrowser" selectFileCallback=selectFileCallback filePath=filePath}}
 {{/if}}

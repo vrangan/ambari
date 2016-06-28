@@ -29,7 +29,6 @@ import EmberValidations,{ validator } from 'ember-validations';
 export default Ember.Component.extend(EmberValidations,{
   workflowContext : WorkflowContext.create({}),
   workflowTitle:"",
-  workflowXmlPath:"",
   previewXml:"",
   supportedActionTypes:["java", "hive", "pig", "sqoop", "shell", "spark", "map-reduce", "hive2", "sub-workflow", "distcp", "ssh"],
   workflow:null,
@@ -61,6 +60,7 @@ export default Ember.Component.extend(EmberValidations,{
     this.set('workflow',Workflow.create({}));
     this.workflow.initialize();
     this.initAndRenderWorkflow();
+    this.$('#wf_title').focus();
   }.on('didInsertElement'),
   validations: {
     'flattenedNodes': {
@@ -322,7 +322,7 @@ export default Ember.Component.extend(EmberValidations,{
     }.bind(this));
   },
   importWorkflow(filePath){
-    this.set("workflowXmlPath", filePath);
+    this.set("workflowFilePath", filePath);
     this.resetDesigner();
     var workflowXmlDefered=this.getWorkflowFromHdfs(filePath);
     workflowXmlDefered.promise.then(function(data){
@@ -355,7 +355,7 @@ export default Ember.Component.extend(EmberValidations,{
   resetDesigner(){
     this.set('errors',{});
     this.set('validationErrors',{});
-    this.set('workflowFilePath',"");  
+    this.set('workflowFilePath',"");
     this.get("workflow").resetWorfklow();
     this.set('globalConfig', {});
     this.designerPlumb.reset();
@@ -521,7 +521,8 @@ export default Ember.Component.extend(EmberValidations,{
     createNewWorkflow(){
       this.resetDesigner();
       this.rerender();
-      this.set("workflowXmlPath", "");
+      this.set("workflowFilePath", "");
+      this.$('#wf_title').focus();
     },
     conirmCreatingNewWorkflow(){
       this.set('showingConfirmationNewWorkflow', true);
