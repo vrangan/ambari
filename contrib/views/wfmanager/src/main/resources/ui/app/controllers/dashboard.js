@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
                 method: 'PUT',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-Requested-By", "Ambari");
-                    if(params.action === 'rerun'){
+                    if(params.action.indexOf('rerun')>0){
                       xhr.setRequestHeader("Content-type","application/xml");
                     }
                 }

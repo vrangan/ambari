@@ -23,31 +23,6 @@ export default Ember.Component.extend({
       var roundedStart = this.get('jobs.start') - this.get('jobs.start') % 10;
       return (roundedStart / this.get('jobs.pageSize'))+1;
     }),
-    initialize : function(){
-      this.$(".cbox").on('click',function(){
-        if(this.$('.cbox:checked').length > 0){
-          this.set('showBulkAction', true);
-          var status = [];
-          this.$('.cbox:checked').each((index, element)=>{
-            status.push(this.$(element).attr('data-status'));
-          }.bind(this));
-          var isSame = status.reduce(function(a, b){
-            return (a === b) ? true : false;
-          });
-          if(isSame && status[0] === 'SUSPENDED'){
-            this.set('enableResume', true);
-            this.set('enableSuspend', false);
-          }else if(isSame && status[0] === 'RUNNING'){
-            this.set('enableSuspend', true);
-            this.set('enableResume', false);
-          }else{
-            this.set('enableKill', true);
-          }
-        }else{
-          this.set('showBulkAction', false);
-        }
-      }.bind(this));
-    }.on('didRender'),
     actions: {
         selectAll() {
             this.$(".cbox").click();
@@ -116,6 +91,31 @@ export default Ember.Component.extend({
         },
         showJobDetails : function(jobId){
           this.sendAction('onShowJobDetails',{type:this.get('jobs.jobTypeValue'), id:jobId});
+        },
+        rowSelected : function(){
+          if(this.$('.cbox:checked').length > 0){
+            this.set('showBulkAction', true);
+            var status = [];
+            this.$('.cbox:checked').each((index, element)=>{
+              status.push(this.$(element).attr('data-status'));
+            }.bind(this));
+            var isSame = status.every(function(value, idx, array){
+              return idx === 0 || value === array[idx - 1];
+            });
+            if(isSame && status[0] === 'SUSPENDED'){
+              this.set('toggleResume', 'enabled');
+              this.set('toggleSuspend', 'disabled');
+            }else if(isSame && status[0] === 'RUNNING'){
+              this.set('toggleSuspend', 'enabled');
+              this.set('toggleResume', 'disabled');
+            }else{
+              this.set('toggleKill', 'enabled');
+              this.set('toggleSuspend', 'disabled');
+              this.set('toggleResume', 'disabled');
+            }
+          }else{
+            this.set('showBulkAction', false);
+          }
         }
     }
 });

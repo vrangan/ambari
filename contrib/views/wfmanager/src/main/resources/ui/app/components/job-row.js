@@ -42,6 +42,11 @@ export default Ember.Component.extend({
         }.bind(this),function(){
             console.log("error");
         }.bind(this));
+        if(action === 'rerun' && this.get('job').bundleJobId){
+          action = 'bundle-'+action;
+        }else if(action === 'rerun' && this.get('job').coordJobId){
+          action = 'coord-'+action;
+        }
         this.sendAction("onAction", { action: action, id: id }, deferred);
     },
     showJobDetails : function(jobId){
@@ -54,6 +59,9 @@ export default Ember.Component.extend({
     hideActions () {
       this.$('#actions-div').show();
       this.$('#actions').hide();
+    },
+    rowSelected(){
+      this.sendAction('rowSelected');
     }
   }
 });
