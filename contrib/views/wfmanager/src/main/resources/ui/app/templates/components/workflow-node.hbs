@@ -61,7 +61,7 @@
       <i class="fa fa-trash-o" title="Delete" {{action "deleteNode"}}></i>
     </div>
     <div class="action_node_data">
-      <i class="fa fa-{{icon}}"></i>
+      <i class="fa fa-{{icon}}" title="{{node.actionType}}"></i>
       {{input required pattern="([a-zA-Z_]([\-_a-zA-Z0-9])*){1,39}" name="actionName" data-toggle="tooltip" title=node.name classBinding="node.errors:error:editable" class="editable" value=node.name placeholder="Action Name"}}
     </div>
 
