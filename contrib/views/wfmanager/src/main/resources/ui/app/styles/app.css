@@ -704,12 +704,11 @@ input:invalid {
 .workflow-error {
     top:50px;
     left: 75%;
-    width:25%;
     z-index: 1;
 }
 
 #action_properties_dialog .modal-body {
-    max-height: 500px;
+    max-height: 350px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -743,14 +742,19 @@ input:invalid {
     color: #fff;
 }
 .btn-primary{
-    background-color: #5bb75b;
-    border-color: #5bb75b;
+    background-color: #5bb75b !important;
+    border-color: #289028 !important;
+    color: #fff;
+}
+.btn-primary:visited,.btn-primary:focus,.btn-primary:active,.btn-primary.active{
+    background-color: #5bb75b !important;
+    border-color: #289028 !important;
     color: #fff;
 }
 .btn-primary:hover{
-    background-color: #5bb75b;
-    border-color: #5bb75b;
-    color: #fff;
+  background-color: #289028 !important;
+  border-color: #289028 !important;
+  color: #fff;
 }
 ._actions_popup {
     padding: 4px;
@@ -1125,7 +1129,10 @@ input:invalid {
   overflow: scroll;
 }
 #wf_title{
-      margin-top: -4px;
+    margin-top: 10px;
+    float: left;
+    width: 115px;
+    font-size: 12px;
 }
 .backto-dashboard{
   text-decoration: blink !important;
@@ -1319,4 +1326,15 @@ background: #fff;
 }
 .node_actions i:last-child {
   border-right:none;
+}
+
+.wf-path {
+    font-size: 12px;
+    float: left;
+    color: gray;
+    margin-top: 17px;
+    max-width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

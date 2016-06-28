@@ -21,26 +21,19 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <div class="navbar-brand">
-        <div class="col-xs-6 padding0">
+        <div class="padding0">
           Workflow Designer
         </div>
-        <div class="col-xs-6 padding0">
-            {{input class="form-control" type="text" id="wf_title" value=workflow.name title="Workflow Title" placeholder="Workflow Title"}}
-          <!--<button class="btn btn-default btn-sm title-btn">{{!-- <i class="fa fa-edit"></i> --}} <strong id="wf_title" class="editable" contenteditable="true">WorkflowTitle</strong></button>-->
-        </div>
       </div>
-      <div>
-
+      <div class="padding0">
+          {{input class="form-control" type="text" id="wf_title" value=workflow.name title="Workflow Name" placeholder="Workflow Name"}}
+        <!--<button class="btn btn-default btn-sm title-btn">{{!-- <i class="fa fa-edit"></i> --}} <strong id="wf_title" class="editable" contenteditable="true">WorkflowTitle</strong></button>-->
       </div>
-      {{#if workflowXmlPath}}
-
-        <div class="col-xs-6 padding20">
-              <label class="control-label">Workflow Path:</label>
-              {{workflowXmlPath}}
-          <!--<button class="btn btn-default btn-sm title-btn">{{!-- <i class="fa fa-edit"></i> --}} <strong id="wf_title" class="editable" contenteditable="true">WorkflowTitle</strong></button>-->
+      {{#if workflowFilePath}}
+        <div class="wf-path padding20" title={{workflowFilePath}}>
+            Path:{{ workflowFilePath}}
         </div>
       {{/if}}
-
       <div class="navbar-brand pull-right paddingtop10">
         <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#ConfirmDialog" title="New Workflow" {{action "conirmCreatingNewWorkflow"}}>
             <i class="fa fa-file"></i>
