@@ -20,6 +20,9 @@ body {
     padding: 0;
     margin: 0;
 }
+.padding0 {
+  padding: 0px;
+}
 .paddingtop10{
   padding-top:10px;
 }
