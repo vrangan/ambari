@@ -255,12 +255,12 @@ public class OozieProxyImpersonator {
 
 	@PUT
 	@Path("/{path: .*}")
-	public Response handlePut(@Context HttpHeaders headers, @Context UriInfo ui)
+	public Response handlePut(String body,@Context HttpHeaders headers, @Context UriInfo ui)
 			throws IOException {
 
 		try {
 			String serviceURI = buildURI(ui);
-			return consumeService(headers, serviceURI, HttpMethod.PUT, null);
+			return consumeService(headers, serviceURI, HttpMethod.PUT, body);
 		} catch (Exception ex) {
 			LOGGER.error(ex.getMessage(), ex);
 			return Response.status(Response.Status.BAD_REQUEST)
