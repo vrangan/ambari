@@ -22,6 +22,18 @@ export default Ember.Component.extend({
   onRender : function(){
     this.$('#actions').hide();
   }.on('didInsertElement'),
+  getJobDetails : function(id){
+    var deferred = Ember.RSVP.defer();
+    Ember.$.get(Ember.ENV.API_URL+'/v2/job/'+id+'?show=info&timezone=GMT&offset=1&len='+Ember.ENV.PAGE_SIZE).done(function(response){
+      if (typeof response === "string") {
+          response = JSON.parse(response);
+      }
+      deferred.resolve(response);
+    }).fail(function(){
+      deferred.reject();
+    });
+    return deferred.promise;
+  },
   actions : {
     doAction(action, id) {
         var deferred = Ember.RSVP.defer();
@@ -47,7 +59,16 @@ export default Ember.Component.extend({
         }else if(action === 'rerun' && this.get('job').coordJobId){
           action = 'coord-'+action;
         }
-        this.sendAction("onAction", { action: action, id: id }, deferred);
+        var params = {id: id, action:action };
+        if(action.indexOf('rerun') > -1){
+          var jobDetailsPromise = this.getJobDetails(id);
+          jobDetailsPromise.then(function(jobInfo){
+            params.conf = jobInfo.conf;
+            this.sendAction("onAction", params, deferred);
+          }.bind(this));
+        }else{
+          this.sendAction("onAction", params, deferred);
+        }
     },
     showJobDetails : function(jobId){
       this.sendAction('showJobDetails', jobId);

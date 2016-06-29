@@ -43,16 +43,20 @@ export default Ember.Controller.extend({
             var url = [Ember.ENV.API_URL,
                 "/v2/job/", params.id, "?action=", params.action,'&user.name=oozie'
             ].join("");
-            Ember.$.ajax({
+            var jobActionParams = {
                 url: url,
                 method: 'PUT',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-Requested-By", "Ambari");
-                    if(params.action.indexOf('rerun')>0){
-                      xhr.setRequestHeader("Content-Type","application/xml;charset=UTF-8");
+                    if(params.action.indexOf('rerun') > -1){
+                      xhr.setRequestHeader("Content-Type","application/xml");
                     }
                 }
-            }).done(function(){
+            };
+            if(params.action.indexOf('rerun') > -1){
+              jobActionParams.data = params.conf;
+            }
+            Ember.$.ajax(jobActionParams).done(function(){
               deferred.resolve();
             }).fail(function(){
               deferred.reject();
