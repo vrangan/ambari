@@ -119,6 +119,7 @@
 	<build>
 		<plugins>
 			<plugin>
+<<<<<<< HEAD
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.0</version>
@@ -189,6 +190,8 @@
 				</executions>
 			</plugin>
 			<plugin>
+=======
+>>>>>>> 274d9d89e39f6dd4f6c3d396c089163946998b8b
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
