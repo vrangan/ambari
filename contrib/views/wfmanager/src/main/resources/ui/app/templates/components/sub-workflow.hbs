@@ -30,13 +30,7 @@
           {{#field-error error=errors.actionModel.appPath}}{{/field-error}}
         </div>
       </div>
-      <div class="form-group">
-        <label class="control-label col-xs-2">propagate </label>
-        <div class="col-xs-7">
-          {{input type="text" class="form-control" validations="required" name="propagateConfiguration" value=actionModel.propagateConfiguration placeholder="propagate-configuration"}}
-          {{#field-error error=errors.actionModel.propagateConfiguration}}{{/field-error}}
-        </div>
-      </div>
+
   </div>
 </div>
       <div class=" panel panel-default">
@@ -51,3 +45,10 @@
         {{#transition-config transition=transition killNodes=killNodes currentNode=currentNode register="register"}}{{/transition-config}}
       </div>
     </div>
+      <div class="form-group">
+        <div class="col-xs-10">
+          <div class="checkbox">
+            <label>{{input type="checkbox" name="propagate-configuration" checked=actionModel.propagate-configuration}}Propagate configuration</label>
+          </div>
+        </div>
+      </div>

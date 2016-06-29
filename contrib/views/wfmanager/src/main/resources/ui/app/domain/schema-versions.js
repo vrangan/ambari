@@ -37,6 +37,7 @@ export default Ember.Object.extend({
     this.actionVersions.set("shell",["0.3","0.2","0.1"]);
     this.actionVersions.set("spark",["0.2","0.1"]);
     this.actionVersions.set("distcp",["0.2","0.1"]);
+    this.actionVersions.set("email",["0.2","0.1"]);
 
     this.currentActionVersion.set("hive","0.6");
     this.currentActionVersion.set("hive2","0.2");
@@ -45,6 +46,7 @@ export default Ember.Object.extend({
     this.currentActionVersion.set("shell","0.3");
     this.currentActionVersion.set("spark","0.2");
     this.currentActionVersion.set("distcp","0.2");
+    this.currentActionVersion.set("email","0.2");
   },
   getActionVersions(type){
     return this.actionVersions.get(type);

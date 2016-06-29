@@ -244,7 +244,7 @@ var SubWFActionJobHandler=ActionJobHandler.extend({
   init(){
     this.mapping=[
       {xml:"app-path",domain:"appPath",mandatory:true},
-      {xml:"prepare-configuration",domain:"prepareConfiguration"},
+      {xml:"propagate-configuration",domain:"propagate-configuration", ignoreValue:true},
       {xml:"configuration",customHandler:this.configurationMapper}
        ];
   }
@@ -287,6 +287,7 @@ var SshActionJobHandler=ActionJobHandler.extend({
 
 var EmailActionJobHandler=ActionJobHandler.extend({
   actionType:"email",
+  nameSpace:"uri:oozie:email-action:0.2",
   mapping:null,
   init(){
     this.mapping=[
