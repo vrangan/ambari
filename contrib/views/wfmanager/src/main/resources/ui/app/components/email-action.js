@@ -39,32 +39,17 @@ export default Ember.Component.extend(EmberValidations, {
      'actionModel.to': {
        presence: {
          'message' : 'You need to provide a value for Email To',
-       },
-       format: {
-          with: /^[A-Za-z0-9]$/,
-          allowBlank: false,
-          message: 'You need to provide a valid value'
-        }
+       }
       },
      'actionModel.subject': {
        presence: {
          'message' : 'You need to provide a value for subject',
-       },
-       format: {
-          with: /^[A-Za-z0-9]$/,
-          allowBlank: false,
-          message: 'You need to provide a valid value'
-        }
+       }
       },
      'actionModel.body': {
        presence: {
          'message' : 'You need to provide a value for body',
-       },
-       format: {
-          with: /^[A-Za-z0-9]$/,
-          allowBlank: false,
-          message: 'You need to provide a valid value'
-        }
+       }
       }
   },
   actions : {

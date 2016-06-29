@@ -182,7 +182,7 @@
 							<arguments>
 								<argument>node_modules/.bin/ember</argument>
 								<argument>build</argument>
-								<argument>--environment=production</argument>
+							
 							</arguments>
 						</configuration>
 					</execution>
