@@ -22,13 +22,14 @@ export default Ember.Component.extend(Ember.Evented,{
     history: Ember.inject.service(),
     startDate : '',
     endDate : '',
-    tags : [],
+    tags : Ember.A([]),
     jobTypeChanged : Ember.observer('jobType', function() {
       this.$('#search-field').tagsinput('removeAll');
       this.set('startDate','');
       this.set('endDate','');
     }),
     populateFilters : function (){
+      this.set('tags', Ember.A([]));
       var previousFilters = this.get('history').getSearchParams();
       if(!previousFilters || !previousFilters.filter){
         return;
@@ -40,7 +41,7 @@ export default Ember.Component.extend(Ember.Evented,{
           }
           var valueArr = value.split("=");
           if(valueArr[0] !== 'startCreatedTime' && valueArr[0] !== 'endCreatedTime'){
-            this.get('tags').push(valueArr[0] + ":" + valueArr[1]);
+            this.get('tags').pushObject(valueArr[0] + ":" + valueArr[1]);
           }else if(valueArr[0] === 'startCreatedTime'){
             this.set('startDate',valueArr[1]);
           }else if(valueArr[0] === 'endCreatedTime'){
@@ -48,7 +49,7 @@ export default Ember.Component.extend(Ember.Evented,{
           }
         }.bind(this));
       }
-    }.on('didInsertElement'),
+    }.on('init'),
 
     displayType : Ember.computed('jobType', function() {
       if(this.get('jobType') === 'wf'){
