@@ -307,7 +307,7 @@ public class OozieProxyImpersonator {
 		}
 		if (queryParams.containsKey("oozieconfig.rerunOnFailure")) {
 			String rerunFailnodes=queryParams.getFirst("oozieconfig.rerunOnFailure");
-			workflowConigs.put("config.wf.rerun.failnodes", rerunFailnodes);
+			workflowConigs.put("oozie.wf.rerun.failnodes", rerunFailnodes);
 		}else{
 			workflowConigs.put("oozie.wf.rerun.failnodes", "true");
 		}
