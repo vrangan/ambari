@@ -19,10 +19,17 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     showBulkAction : false,
+    history: Ember.inject.service(),
     currentPage : Ember.computed('jobs.start',function(){
+      if(Ember.isBlank(this.get('jobs.start'))){
+        return 1;
+      }
       var roundedStart = this.get('jobs.start') - this.get('jobs.start') % 10;
       return (roundedStart / this.get('jobs.pageSize'))+1;
     }),
+    rendered : function(){
+      this.sendAction('onSearch', this.get('history').getSearchParams());
+    }.on('didInsertElement'),
     actions: {
         selectAll() {
             this.$(".cbox").click();

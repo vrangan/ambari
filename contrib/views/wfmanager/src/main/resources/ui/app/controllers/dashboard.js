@@ -22,16 +22,17 @@ export default Ember.Controller.extend({
         launchDesign: function () {
             this.transitionToRoute('design');
         },
-        doSearch: function (params) {
-            this.transitionToRoute('dashboard', {
-                queryParams: {
-                    jobType: params.type,
-                    start: params.start,
-                    end: params.end,
-                    filter: params.filter
-                }
-            });
-        },
+        // doSearch: function (params) {
+        //   this.sendAction('onSearch', params);
+        //     // this.transitionToRoute('dashboard', {
+        //     //     queryParams: {
+        //     //         jobType: params.type,
+        //     //         start: params.start,
+        //     //         end: params.end,
+        //     //         filter: params.filter
+        //     //     }
+        //     // });
+        // },
         doRefresh : function(){
           this.get('target.router').refresh();
         },

@@ -46,6 +46,11 @@ export default Ember.Route.extend({
         },
         error: function() {
 
+        },
+        doSearch (params){
+          this.get('history').setSearchParams(params);
+          Ember.$("#loading").css("display", "block");
+          this.search(params);
         }
     },
     fetchJobs (url){
@@ -57,79 +62,83 @@ export default Ember.Route.extend({
       });
       return deferred.promise;
     },
+    search(params){
+      params = params || {};
+      var type = params.type || "wf",
+          start = Number(params.start || 1),
+          len = Number(params.len || Ember.ENV.PAGE_SIZE),
+          index = 0,
+          filter = params.filter || "",
+          API_URL = Ember.ENV.API_URL,
+          url = [API_URL,
+              "/v2/jobs?jobtype=", type,
+              "&offset=", start,
+              "&len=", len,
+              "&filter=", filter
+          ].join(""),
+          page = (start - 1) / len + 1;
+      return this.fetchJobs(url).catch(function(){
+        this.controllerFor('dashboard').set('model',{error : "Remote API Failed"});
+        Ember.$("#loading").css("display", "none");
+      }.bind(this)).then(function (res) {
+          if (typeof res === "string") {
+              res = JSON.parse(res);
+          }
+          res.jobs = [];
+
+          if (res.workflows) {
+              res.areWfs = true;
+              res.type = "wf";
+              res.workflows.forEach(function (job) {
+                  job.type = "wf";
+                  res.jobs.push(job);
+              });
+          }
+          if (res.coordinatorjobs) {
+              res.areCoords = true;
+              res.type = "coords";
+              res.coordinatorjobs.forEach(function (job) {
+                  job.type = "coordinatorjobs";
+                  job.id = job.coordJobId;
+                  job.appName = job.coordJobName;
+                  res.jobs.push(job);
+              });
+          }
+          if (res.bundlejobs) {
+              res.areBundles = true;
+              res.type = "bundles";
+              res.bundlejobs.forEach(function (job) {
+                  job.type = "bundlejobs";
+                  job.id = job.bundleJobId;
+                  //  job.startTime = job.kickOffTime;
+                  job.appName = job.bundleJobName;
+                  res.jobs.push(job);
+              });
+          }
+          res.pageSize = len;
+          res.pages = [];
+
+          while (index++ < (res.total / len)) {
+              res.pages.push({ index: index, active: page === index });
+          }
+
+          res.jobTypeValue = type;
+          res.filterValue = filter;
+          res.pageSize = len;
+          res.totalValue = res.total;
+          res.page = page;
+          res.start = start;
+          res.end = (start + res.jobs.length - 1);
+          res.time = new Date().getTime();
+          this.controllerFor('dashboard').set('model', res);
+          Ember.$("#loading").css("display", "none");
+          return res;
+      }.bind(this));
+    },
     afterModel: function (model) {
         Ember.$("#loading").css("display", "none");
     },
     model: function (params) {
-        this.get('history').setSearchParams(params);
-        params = params || {};
-        var type = params.jobType || "wf",
-            start = Number(params.start || 1),
-            len = Number(params.len || Ember.ENV.PAGE_SIZE),
-            index = 0,
-            filter = params.filter || "",
-            API_URL = Ember.ENV.API_URL,
-            url = [API_URL,
-                "/v2/jobs?jobtype=", type,
-                "&offset=", start,
-                "&len=", len,
-                "&filter=", filter
-            ].join(""),
-            page = (start - 1) / len + 1;
-        return this.fetchJobs(url).catch(function(){
-          return {error : "Remote API Failed"};
-        }.bind(this)).then(function (res) {
-            if (typeof res === "string") {
-                res = JSON.parse(res);
-            }
-            res.jobs = [];
-
-            if (res.workflows) {
-                res.areWfs = true;
-                res.type = "wf";
-                res.workflows.forEach(function (job) {
-                    job.type = "wf";
-                    res.jobs.push(job);
-                });
-            }
-            if (res.coordinatorjobs) {
-                res.areCoords = true;
-                res.type = "coords";
-                res.coordinatorjobs.forEach(function (job) {
-                    job.type = "coordinatorjobs";
-                    job.id = job.coordJobId;
-                    job.appName = job.coordJobName;
-                    res.jobs.push(job);
-                });
-            }
-            if (res.bundlejobs) {
-                res.areBundles = true;
-                res.type = "bundles";
-                res.bundlejobs.forEach(function (job) {
-                    job.type = "bundlejobs";
-                    job.id = job.bundleJobId;
-                    //  job.startTime = job.kickOffTime;
-                    job.appName = job.bundleJobName;
-                    res.jobs.push(job);
-                });
-            }
-            res.pageSize = len;
-            res.pages = [];
-
-            while (index++ < (res.total / len)) {
-                res.pages.push({ index: index, active: page === index });
-            }
-
-            res.jobTypeValue = type;
-            res.filterValue = filter;
-            res.pageSize = len;
-            res.totalValue = res.total;
-            res.page = page;
-            res.start = start;
-            res.end = (start + res.jobs.length - 1);
-            res.time = new Date().getTime();
-            return res;
-        });
 
     }
 });

@@ -179,7 +179,7 @@ export default Ember.Component.extend(Ember.Evented,{
             this.sendAction('onSearch', { type: type, filter: filter });
         },
         refresh(){
-          this.sendAction('onRefresh');
+          this.sendAction('onSearch', this.get('history').getSearchParams());
         },
         showDatePicker(dateType) {
           if (dateType === 'start') {

@@ -838,6 +838,9 @@ input:invalid {
     height: 30px;
     overflow-y: auto;
 }
+#search-bar .bootstrap-tagsinput .label-info{
+    background-color : #5bb75b;
+}
 #search-bar .tt-menu {
     position: absolute;
     top: 100%;
@@ -1049,7 +1052,7 @@ input:invalid {
       opacity: 1;
   }
   .pages .btn {
-      color: #337ab7;
+      /*color: #5bb75b;*/
   }
 
   .pages .btn.disabled {
