@@ -49,7 +49,7 @@ export default Ember.Controller.extend({
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-Requested-By", "Ambari");
                     if(params.action.indexOf('rerun')>0){
-                      xhr.setRequestHeader("Content-type","application/xml");
+                      xhr.setRequestHeader("Content-Type","application/xml;charset=UTF-8");
                     }
                 }
             }).done(function(){

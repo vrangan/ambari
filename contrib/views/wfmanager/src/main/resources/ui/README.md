@@ -95,3 +95,9 @@ Make use of the many generators for code, try `ember help generate` for more det
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
 
+How the code is organized.
+There are 2 main components- Dashboard and Designer.
+1) Designer
+	
+
+2) Dashboard.
