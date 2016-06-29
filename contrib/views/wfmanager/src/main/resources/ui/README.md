@@ -1,6 +1,13 @@
-# Oozie-UI
+# Workflow Manager-UI
 
-This is the repository for the Oozie web UI (including interactive workflow designer). it uses Ember as underline JS framework.
+This is the repository for the Workflow Manager web UI . This has Dashboard where Oozie jobs can be monitored, run, stip etc..It also has a desiger which allows 
+you to develop a oozie work flow in a graphical interface. 
+
+Technologies Used.
+it uses Ember as underline JS framework.
+JsPlbumb for designer.
+Dagre for layout in designer.
+bootstrap for css.
 
 ## Prerequisites
 
@@ -18,10 +25,14 @@ If you are not building using maven, you will need the following things properly
 * change into the new directory
 * To build the deployable war file, run `mvn clean package`
 
-If you don't want to use maven then you can setup using following commands.
+in the main directory, just do mvn install.
 
+For doing local development
+==============================
+Go to folder under wfmanager\src\main\resources\ui.
 * `npm install`
 * `bower install`
+
 
 ## Running / Development using node and ember-cli
 
@@ -43,13 +54,7 @@ If you want to use different local port (other than `11002`) then update the API
 
 * `mvn clean package` (Build web ui and puts into /dist)
 * `mvn test -Pproxy` (start proxy for the oozie API)
-
 * In another console tab `mvn test -Pserver` (does ember server)
-
-Or to deploy and run the war file through jetty, use following commands.
-
-* `mvn jetty:run`
-
 * Wheather you use maven or ember, your app would be accessible at [http://localhost:4300](http://localhost:4300).
 
 ### Setup and Run sample Oozie workflows, bundles and coordinators
