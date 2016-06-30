@@ -1323,3 +1323,10 @@ background: #fff;
 .node_actions i:last-child {
   border-right:none;
 }
+.elipsisClass{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 40%;
+}
