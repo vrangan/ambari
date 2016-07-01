@@ -56,7 +56,8 @@ var NodeFactory= Ember.Object.extend({
     return decisionNode;
   },
   generateDecisionNodeWithoutJoinPlaceHolder(target){
-    var decisionNode=this.createEmptyDecisionNode("decision" + this.generateName());
+  //  var decisionNode=this.createEmptyDecisionNode("decision" + this.generateName());
+    var decisionNode=this.createEmptyDecisionNode("decision");
     var leftPlaceholder =this.createPlaceholderNode(target) ;
     decisionNode.addTransitionTo(leftPlaceholder,"default");
     if (Constants.globalSetting.useAdditionalPlaceholderFlowForDecision){

@@ -704,7 +704,7 @@ input:invalid {
 .workflow-error {
     top:50px;
     left: 75%;
-    width:25%;
+    /*width:50%;*/
     z-index: 1;
 }
 

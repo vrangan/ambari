@@ -21,6 +21,7 @@ import {FindNodeMixin} from '../domain/findnode-mixin';
 import {NodeFactory} from '../domain/node-factory';
 import SchemaVersions from '../domain/schema-versions';
 import {NodeVisitor} from '../domain/node-visitor';
+import {idGen} from '../domain/id-gen';
 var Workflow= Ember.Object.extend(FindNodeMixin,{
   name:"",
   startNode:null,
@@ -52,6 +53,7 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
       this.set("killNodes",Ember.A([]));
   },
   resetWorfklow(){
+    //idGen.reset();
     this.initialize();
   },
   findCommonTargetNodeId(node){

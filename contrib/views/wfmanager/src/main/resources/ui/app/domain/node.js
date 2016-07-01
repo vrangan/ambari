@@ -53,7 +53,7 @@ var Node = Ember.Object.extend(FindNodeMixin,{
     if (this.isDecisionNode()){
       this.get("transitions").forEach(function(tran){
         if (Ember.isBlank(tran.condition)){
-          this.errorMsgs.push({node : this ,message :"Empty condition in decision node"});
+        //  this.errorMsgs.push({node : this ,message :"Empty condition in decision node"});
         }
       }.bind(this));
     }
