@@ -37,7 +37,8 @@ export default Ember.Object.create({
     mapReduceAction:{name : "map-reduce",supportsSchema : false, currentVersion:''},
     subWorkflowAction:{name : "sub-workflow",supportsSchema : false, currentVersion:''},
     distcpAction:{name : "distcp",supportsSchema : true, currentVersion:''},
-    sshAction:{name : "ssh",supportsSchema : false, currentVersion:''}
+    sshAction:{name : "ssh",supportsSchema : false, currentVersion:''},
+    emailAction:{name : "email",supportsSchema : true, currentVersion:''}
   },
   sparkMasterList :Ember.A([{value:'yarn-cluster',displayName:'Yarn Cluster'},
                             {value:'yarn-client',displayName:'Yarn Client'},
