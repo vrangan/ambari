@@ -204,8 +204,11 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
           if (tran.isDefaultCasePath()){
             var placeholderNode=self.nodeFactory.createPlaceholderNode(target);
             tran.targetNode=placeholderNode;
-          }else{
+          }else   if (tran.getSourceNode().getOkTransitionCount()>2){
             tran.getSourceNode().removeTransition(tran);
+          }else{
+            var placeholderNode=self.nodeFactory.createPlaceholderNode(target);
+            tran.targetNode=placeholderNode;
           }
         }
       }else if (tran.getSourceNode().isForkNode()){
