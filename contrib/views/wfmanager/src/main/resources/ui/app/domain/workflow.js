@@ -189,7 +189,6 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
   },
   deleteNode(node){
     var self=this;
-    var transitionslist=this.findTransistionsToNode(node);
     var target=node.getDefaultTransitionTarget();
     if (node.isForkNode()|| node.isDecisionNode()){
       var joinNode=this.findJoinNode(node);
@@ -197,13 +196,17 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
         target=joinNode.getDefaultTransitionTarget();
       }
     }
+    var transitionslist=this.findTransistionsToNode(node);
     transitionslist.forEach(function(tran){
       if (tran.getSourceNode().isDecisionNode()){
-        var commonTargetId=self.findCommonTargetNodeId(tran.getSourceNode());
-        var commonTarget=self.findNodeById(self.startNode,commonTargetId);
-        if (commonTarget===target && tran.condition!=="default"){
-          tran.getSourceNode().removeTransition(tran);
-            //toBeDeletedTransitions.push(tran);
+        var joinNode=self.findJoinNode(tran.getSourceNode());
+        if (joinNode===target){
+          if (tran.isDefaultCasePath()){
+            var placeholderNode=self.nodeFactory.createPlaceholderNode(target);
+            tran.targetNode=placeholderNode;
+          }else{
+            tran.getSourceNode().removeTransition(tran);
+          }
         }
       }else if (tran.getSourceNode().isForkNode()){
         var joinNode=self.findJoinNode(tran.getSourceNode());
