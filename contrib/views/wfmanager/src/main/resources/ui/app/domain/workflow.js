@@ -191,9 +191,9 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
     var self=this;
     var target=node.getDefaultTransitionTarget();
     if (node.isForkNode()|| node.isDecisionNode()){
-      var joinNode=this.findJoinNode(node);
-      if (joinNode){
-        target=joinNode.getDefaultTransitionTarget();
+      target=this.findJoinNode(node);
+      if (target.isJoinNode()){
+        target=target.getDefaultTransitionTarget();
       }
     }
     var transitionslist=this.findTransistionsToNode(node);
