@@ -107,7 +107,7 @@ export default Ember.Component.extend({
         dataType: "text",
         contentType: "text/plain;charset=utf-8",
         beforeSend: function(request) {
-            request.setRequestHeader("X-Requested-By", "oozie-designer");
+            request.setRequestHeader("X-Requested-By", "workflow-designer");
         },
         data: this.get("workflowXml"),
         success: function(response) {
