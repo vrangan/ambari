@@ -17,6 +17,7 @@
 
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
+import Constants from '../utils/constants';
 export default Ember.Component.extend(EmberValidations, Ember.Evented,{
     actionIcons : {
       "hive": "server",
@@ -76,7 +77,7 @@ export default Ember.Component.extend(EmberValidations, Ember.Evented,{
     });
     this.set('transition',transition);
     if (Ember.isBlank(this.get("actionModel.jobTracker"))){
-      this.set('actionModel.jobTracker','${jobTracker}');
+      this.set('actionModel.jobTracker',Constants.rmDefaultValue);
     }
     if (Ember.isBlank(this.get("actionModel.nameNode"))){
       this.set('actionModel.nameNode','${nameNode}');

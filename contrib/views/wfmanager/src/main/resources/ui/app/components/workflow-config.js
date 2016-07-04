@@ -16,13 +16,14 @@
  */
 
 import Ember from 'ember';
+import Constants from '../utils/constants';
 export default Ember.Component.extend({
   systemConfigs : Ember.A([]),
   initialize :function(){
       this.set("configPropsExists",this.get("workflowSubmitConfigs").props.size>0);
       var workflowProps =[];
       this.get("workflowSubmitConfigs").props.forEach(function(value) {
-        if (value!=="${nameNode}" && value!=="${jobTracker}"){
+        if (value!=="${nameNode}" && value!==Constants.rmDefaultValue){
           var prop= Ember.Object.create({
              name: value.trim().substring(2,value.length-1),
              value: null
@@ -92,6 +93,9 @@ export default Ember.Component.extend({
     this.get('systemConfigs').forEach((config)=>{
       url = url + "&oozieconfig." + config.name + "=" + config.value;
     });
+    if ( this.get("workflowSubmitConfigs").props.has("${resourceManager}")){
+      url= url+"&resourceManager=useDefault";
+    }
     if (missingConig){
       self.showNotification({
           "type": "error",

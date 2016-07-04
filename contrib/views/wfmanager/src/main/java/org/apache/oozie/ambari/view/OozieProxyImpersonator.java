@@ -280,15 +280,14 @@ public class OozieProxyImpersonator {
 			nameNodes.add(nameNode);
 			queryParams.put("config.nameNode", nameNodes);
 		}
-		if (!queryParams.containsKey("config.jobTracker")) {
-			ArrayList<String> jobTrackerNodes = new ArrayList<String>();
-			String jobTrackerNode = viewContext.getCluster().getConfigurationValue(
+		
+		HashMap<String, String> workflowConigs = new HashMap<String, String>();
+		if (queryParams.containsKey("resourceManager") && "useDefault".equals( queryParams.getFirst("resourceManager"))){
+			String jobTrackerNode = ambariApi.getCluster().getConfigurationValue(
 					"yarn-site", "yarn.resourcemanager.address");
 			LOGGER.info("jobTrackerNode===" + jobTrackerNode);
-			jobTrackerNodes.add(jobTrackerNode);
-			queryParams.put("config.jobTracker", jobTrackerNodes);
+			workflowConigs.put("resourceManager", jobTrackerNode);
 		}
-		HashMap<String, String> workflowConigs = new HashMap<String, String>();
 		if (queryParams != null) {
 			for (Map.Entry<String, List<String>> entry : queryParams.entrySet()) {
 				if (entry.getKey().startsWith("config.")) {
@@ -299,6 +298,7 @@ public class OozieProxyImpersonator {
 				}
 			}
 		}
+		
 		if (queryParams.containsKey("oozieconfig.useSystemLibPath")) {
 			String useSystemLibPath=queryParams.getFirst("oozieconfig.useSystemLibPath");
 			workflowConigs.put("oozie.use.system.libpath", useSystemLibPath);
