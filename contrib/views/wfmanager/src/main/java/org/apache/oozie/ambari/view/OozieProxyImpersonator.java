@@ -283,7 +283,7 @@ public class OozieProxyImpersonator {
 		
 		HashMap<String, String> workflowConigs = new HashMap<String, String>();
 		if (queryParams.containsKey("resourceManager") && "useDefault".equals( queryParams.getFirst("resourceManager"))){
-			String jobTrackerNode = ambariApi.getCluster().getConfigurationValue(
+			String jobTrackerNode = viewContext.getCluster().getConfigurationValue(
 					"yarn-site", "yarn.resourcemanager.address");
 			LOGGER.info("jobTrackerNode===" + jobTrackerNode);
 			workflowConigs.put("resourceManager", jobTrackerNode);
