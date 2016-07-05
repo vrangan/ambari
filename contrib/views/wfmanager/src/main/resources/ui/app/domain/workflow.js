@@ -210,6 +210,8 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
             var placeholderNode=self.nodeFactory.createPlaceholderNode(target);
             tran.targetNode=placeholderNode;
           }
+        }else{
+          tran.targetNode=target;
         }
       }else if (tran.getSourceNode().isForkNode()){
         var joinNode=self.findJoinNode(tran.getSourceNode());
