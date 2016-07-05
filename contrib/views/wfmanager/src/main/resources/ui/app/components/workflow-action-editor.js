@@ -18,6 +18,8 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
 import Constants from '../utils/constants';
+import {SlaInfo} from '../domain/sla-info';
+
 export default Ember.Component.extend(EmberValidations, Ember.Evented,{
     actionIcons : {
       "hive": "server",
@@ -81,6 +83,9 @@ export default Ember.Component.extend(EmberValidations, Ember.Evented,{
     }
     if (Ember.isBlank(this.get("actionModel.nameNode"))){
       this.set('actionModel.nameNode','${nameNode}');
+    }
+    if(this.get('nodeType') === 'action' && this.get('actionModel.slaInfo') === undefined){
+      this.set('actionModel.slaInfo', SlaInfo.create({}));
     }
   }.on('init'),
   initialize : function(){
