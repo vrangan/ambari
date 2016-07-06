@@ -14,46 +14,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
- import Ember from 'ember';
- var SlaInfo = Ember.Object.extend(Ember.Copyable,{
-    copy (){
-     var slaInfo = {}
-     for (let key in this) {
-        slaInfo[key] = Ember.copy(this[key]) ;
-    }
-    return slaInfo;
-   },
-   init (){
-      this.nominalTime='';
-      this.shouldStart = {
-         time : '',
-         unit : ''
-       };
-       this.shouldEnd = {
-         time : '',
-         unit : ''
-       };
-       this.maxDuration = {
-         time : '',
-         unit : ''
-       };
-      this.alertEvents = '';
-      this.alertContacts = '';
-   },
-   nominalTime:'',
-   shouldStart : {
-     time : '',
-     unit : ''
-   },
-   shouldEnd : {
-     time : '',
-     unit : ''
-   },
-   maxDuration : {
-     time : '',
-     unit : ''
-   },
-   alertEvents : '',
-   alertContacts : ''
- });
- export {SlaInfo};
+import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+
+moduleForComponent('workflow-sla', 'Integration | Component | workflow sla', {
+  integration: true
+});
+
+test('it renders', function(assert) {
+  // Set any properties with this.set('myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });"
+
+  this.render(hbs`{{workflow-sla}}`);
+
+  assert.equal(this.$().text().trim(), '');
+
+  // Template block usage:"
+  this.render(hbs`
+    {{#workflow-sla}}
+      template block text
+    {{/workflow-sla}}
+  `);
+
+  assert.equal(this.$().text().trim(), 'template block text');
+});

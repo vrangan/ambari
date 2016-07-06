@@ -15,17 +15,22 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 }}
+<label class="control-label col-xs-2">{{input type="checkbox" checked=enableSla}}Enable SLA
+</label>
 <div class="panel panel-default">
-  <div class="panel-heading" id="sla-accordion" data-toggle="collapse" data-parent="#sla-accordion" data-target="#slaCollapse">
+  <div class="panel-heading" id="sla-accordion" {{collapsableAttrs}}>
     <h4 class="panel-title">
       SLA
-      <i class="indicator glyphicon glyphicon-chevron-down pull-right"></i></h4>
+      {{#if collapsable}}
+        <i class="indicator glyphicon glyphicon-chevron-down pull-right"></i>
+      {{/if}}
+    </h4>
     </div>
-    <div id="slaCollapse" class="panel-collapse collapse">
+    <div id="slaCollapse" classBinding="collapsable:panel-collapse collapse:''">
       <div class="form-group">
         <label class="control-label col-xs-2 padding10">Nominal Time</label>
         <div class="col-xs-3 padding10">
-          {{input type="text" class="form-control" value=slaInfo.nominalTime placeholder="Nominal Time"}}
+          {{input type="text" id="nominalTime" class="form-control" value=slaInfo.nominalTime placeholder="Nominal Time"}}
         </div>
       </div>
       <div class="form-group">
@@ -35,6 +40,7 @@
         </div>
         <div class="col-xs-2">
           <select class="form-control" name="time-unit" onchange={{action (mut slaInfo.shouldStart.unit) value="target.value"}}>
+            <option value="">Select Unit</option>
             <option value="MINUTES">Minutes</option>
             <option value="HOURS">Hours</option>
             <option value="DAYS">Days</option>
@@ -48,6 +54,7 @@
         </div>
         <div class="col-xs-2">
           <select class="form-control" name="time-unit" onchange={{action (mut slaInfo.shouldEnd.unit) value="target.value"}}>
+            <option value="">Select Unit</option>
             <option value="MINUTES">Minutes</option>
             <option value="HOURS">Hours</option>
             <option value="DAYS">Days</option>
@@ -61,6 +68,7 @@
         </div>
         <div class="col-xs-2">
           <select class="form-control" name="time-unit" onchange={{action (mut slaInfo.maxDuration.unit) value="target.value"}}>
+            <option value="">Select Unit</option>
             <option value="MINUTES">Minutes</option>
             <option value="HOURS">Hours</option>
             <option value="DAYS">Days</option>

@@ -386,8 +386,11 @@ export default Ember.Component.extend(EmberValidations,{
     return deferred;
   },
   actions:{
+    showWorkflowSla (value) {
+      this.set('showWorkflowSla', value);
+    },
     showCreateKillNode(value){
-      this.set('showCreateKillNode', value);
+      this.set('showWorkflowSla', value);
     },
     showVersionSettings(value){
       this.set('showVersionSettings', value);

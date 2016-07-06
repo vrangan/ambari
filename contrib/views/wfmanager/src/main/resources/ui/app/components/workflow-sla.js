@@ -14,46 +14,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
- import Ember from 'ember';
- var SlaInfo = Ember.Object.extend(Ember.Copyable,{
-    copy (){
-     var slaInfo = {}
-     for (let key in this) {
-        slaInfo[key] = Ember.copy(this[key]) ;
+import Ember from 'ember';
+import {SlaInfo} from '../domain/sla-info'
+
+export default Ember.Component.extend({
+  slaInfo : {},
+  initialize : function(){
+    this.set('slaInfo',Ember.copy(this.get('workflowSla')));
+  }.on('init'),
+  rendered : function(){
+    this.$('#workflow_sla_dialog').modal({
+      backdrop: 'static',
+      keyboard: false
+    });
+    this.$('#workflow_sla_dialog').modal('show');
+    this.$('#workflow_sla_dialog').modal().on('hidden.bs.modal', function() {
+      this.sendAction('showWorkflowSla', false);
+    }.bind(this));
+  }.on('didInsertElement'),
+  actions : {
+    saveWorkflowSla () {
+      this.set('workflowSla', this.get('slaInfo'));
     }
-    return slaInfo;
-   },
-   init (){
-      this.nominalTime='';
-      this.shouldStart = {
-         time : '',
-         unit : ''
-       };
-       this.shouldEnd = {
-         time : '',
-         unit : ''
-       };
-       this.maxDuration = {
-         time : '',
-         unit : ''
-       };
-      this.alertEvents = '';
-      this.alertContacts = '';
-   },
-   nominalTime:'',
-   shouldStart : {
-     time : '',
-     unit : ''
-   },
-   shouldEnd : {
-     time : '',
-     unit : ''
-   },
-   maxDuration : {
-     time : '',
-     unit : ''
-   },
-   alertEvents : '',
-   alertContacts : ''
- });
- export {SlaInfo};
+  }
+});

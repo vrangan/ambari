@@ -22,6 +22,7 @@ import {NodeFactory} from '../domain/node-factory';
 import SchemaVersions from '../domain/schema-versions';
 import {NodeVisitor} from '../domain/node-visitor';
 import {idGen} from '../domain/id-gen';
+import {SlaInfo} from '../domain/sla-info'
 var Workflow= Ember.Object.extend(FindNodeMixin,{
   name:"",
   startNode:null,
@@ -31,6 +32,7 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
   nodeVisitor : null,
   nodeFactory:NodeFactory.create({}),
   schemaVersions:SchemaVersions.create({}),
+  sla : SlaInfo.create({}),
   initialize(){
       this.nodeVisitor=NodeVisitor.create({});
       var src =this.nodeFactory.createStartNode();
