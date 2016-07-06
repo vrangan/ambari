@@ -23,5 +23,14 @@ export default Ember.Component.extend({
       showClose : true,
       defaultDate : this.get('slaInfo.nominalTime')
     });
-  }.on('didInsertElement')
+  }.on('didInsertElement'),
+  actions : {
+    enableSla(){
+      if(this.get('slaEnabled')){
+        this.$('#slaCollapse').collapse('show');
+      }else{
+        this.$('#slaCollapse').collapse('hide');
+      }
+    }
+  }
 });
