@@ -35,53 +35,55 @@
         </div>
       {{/if}}
       <div class="navbar-brand pull-right paddingtop10">
-        <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#ConfirmDialog" title="New Workflow" {{action "conirmCreatingNewWorkflow"}}>
-            <i class="fa fa-file"></i>
-        </button>
-        <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#kill-node-dialog" title="Create Kill Node" {{action "showCreateKillNode" true}}>
-            <i class="fa fa-ban"></i>
-        </button>
-        <button  id="import-workflow-test" type="button" class="btn btn-default hide" title="Import workflow Test" {{action "importWorkflowTest"}}>
-            <i class="fa fa-download"></i>
-        </button>
-        <button  type="button" class="btn btn-default" title="Import workflow" {{action "showFileBrowser"}}>
-            <i class="fa fa-download"></i>
-        </button>
-        <button type="button" class="btn btn-default" title="Global Configurations" {{action "showWorkflowGlobalProps"}}>
-          g<i class="fa fa-cog"></i>
-        </button>
-        <button type="button" class="btn btn-default" title="Workflow and Action Versions" {{action "showVersionSettings" true}}>
-          v<i class="fa fa-cog"></i>
-        </button>
-        <button  data-toggle="modal" data-target="#previewModal"  type="button" class="btn btn-default" title="Preview workflow" {{action "previewWorkflow"}}>
-            <i class="fa fa-eye"></i>
-        </button>
-        <!-- <button type="button" class="btn btn-default" title="Save workflow" {{action "saveWorkflow"}}>
-            <i class="fa fa-floppy-o"></i>
-        </button> -->
-        <button type="button" class="btn btn-primary" title="Submit workflow" {{action "submitWorkflow"}}>
-            <i class="fa fa-upload"></i>
-        </button>
-        {{#link-to 'dashboard' class="backto-dashboard"}}
-        <button type="button" class="btn btn-default" title="Workflow Dashboard">
-            <i class="fa fa-th"></i>
-        </button>
-        {{/link-to}}
-		{{!--
-        <button id="download" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
-            <i class="fa fa-download"></i>
-        </button>
-        <button id="clone" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
-            <i class="fa fa-clone"></i>
-        </button>
-        <button id="submit" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
-            <i class="fa fa-arrow-up"></i>
-        </button>
-        <button id="run" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
-            <i class="fa fa-play"></i>
-        </button>
-		--}}
-        {{help-icon}}
+        <div class="btn-group" role="group" aria-label="...">
+          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#ConfirmDialog" title="New Workflow" {{action "conirmCreatingNewWorkflow"}}>
+              <i class="fa fa-file"></i>
+          </button>
+          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#kill-node-dialog" title="Create Kill Node" {{action "showCreateKillNode" true}}>
+              <i class="fa fa-ban"></i>
+          </button>
+          <button  id="import-workflow-test" type="button" class="btn btn-default hide" title="Import workflow Test" {{action "importWorkflowTest"}}>
+              <i class="fa fa-download"></i>
+          </button>
+          <button  type="button" class="btn btn-default" title="Import workflow" {{action "showFileBrowser"}}>
+              <i class="fa fa-download"></i>
+          </button>
+          <button type="button" class="btn btn-default" title="Global Configurations" {{action "showWorkflowGlobalProps"}}>
+            g<i class="fa fa-cog"></i>
+          </button>
+          <button type="button" class="btn btn-default" title="Workflow and Action Versions" {{action "showVersionSettings" true}}>
+            v<i class="fa fa-cog"></i>
+          </button>
+          <button  data-toggle="modal" data-target="#previewModal"  type="button" class="btn btn-default" title="Preview workflow" {{action "previewWorkflow"}}>
+              <i class="fa fa-eye"></i>
+          </button>
+          <!-- <button type="button" class="btn btn-default" title="Save workflow" {{action "saveWorkflow"}}>
+              <i class="fa fa-floppy-o"></i>
+          </button> -->
+          <button type="button" class="btn btn-primary" title="Submit workflow" {{action "submitWorkflow"}}>
+              <i class="fa fa-upload"></i>
+          </button>
+          {{#link-to 'dashboard' class="backto-dashboard"}}
+          <button type="button" class="btn btn-default" title="Workflow Dashboard">
+              <i class="fa fa-th"></i>
+          </button>
+          {{/link-to}}
+  		{{!--
+          <button id="download" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
+              <i class="fa fa-download"></i>
+          </button>
+          <button id="clone" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
+              <i class="fa fa-clone"></i>
+          </button>
+          <button id="submit" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
+              <i class="fa fa-arrow-up"></i>
+          </button>
+          <button id="run" type="button" class="btn btn-default" {{action "selectWorflowFile"}}>
+              <i class="fa fa-play"></i>
+          </button>
+  		--}}
+          {{help-icon}}
+        </div>
       </div>
     </div>
   </div>
