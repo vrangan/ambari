@@ -17,13 +17,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  initialize : function(){
-    if(this.get('collapsable')){
-      this.set('collapsableAttrs','data-toggle="collapse" data-parent="#sla-accordion" data-target="#slaCollapse"');
-    }else{
-      return this.set('collapsableAttrs','');
-    }
-  }.on('init'),
   elementsInserted : function() {
     this.$('#nominalTime').datetimepicker({
       useCurrent: false,

@@ -15,15 +15,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 }}
-<label class="control-label col-xs-2">{{input type="checkbox" checked=enableSla}}Enable SLA
-</label>
+<div class="form-group">
+  <label class="control-label col-xs-24">{{input type="checkbox" checked=enableSla data-toggle="collapse" data-target="#slaCollapse"}}Enable SLA</label>
+</div>
 <div class="panel panel-default">
-  <div class="panel-heading" id="sla-accordion" {{collapsableAttrs}}>
+  <div class="panel-heading" id="sla-accordion" data-toggle="collapse" data-parent="#sla-accordion" data-target="#slaCollapse">
     <h4 class="panel-title">
-      SLA
-      {{#if collapsable}}
-        <i class="indicator glyphicon glyphicon-chevron-down pull-right"></i>
-      {{/if}}
+      SLA<i class="indicator glyphicon glyphicon-chevron-down pull-right"></i>
     </h4>
     </div>
     <div id="slaCollapse" classBinding="collapsable:panel-collapse collapse:''">

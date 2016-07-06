@@ -240,7 +240,7 @@
   </div>
 {{/if}}
 {{#if showWorkflowSla}}
-  {{#workflow-sla showWorkflowSla="showWorkflowSla" workflowSla=workflow.sla enableWorkflowSla=workflow.enableSla}}{{/workflow-sla}}
+  {{#workflow-sla showWorkflowSla="showWorkflowSla" workflowSla=workflow.sla workflowSlaEnabled=workflow.slaEnabled}}{{/workflow-sla}}
 {{/if}}
 {{#if showVersionSettings}}
   {{version-settings schemaVersions=workflow.schemaVersions showVersionSettings="showVersionSettings" }}
