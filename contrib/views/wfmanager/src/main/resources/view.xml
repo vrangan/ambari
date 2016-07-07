@@ -32,12 +32,7 @@
     <placeholder>http://sandbox.hortonworks.com:11000/oozie</placeholder>
     <cluster-config>oozie-site/oozie.base.url</cluster-config>
   </parameter>
-  <permission>
-    <name>READ_PERM</name>
-  </permission>
-  <permission>
-    <name>SAVE_PERM</name>
-  </permission>
+
   
       <parameter>
         <name>webhdfs.url</name>

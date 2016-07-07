@@ -328,4 +328,19 @@ var MapRedActionJobHandler=ActionJobHandler.extend({
     this._super(actionNode,json);
   }
 });
-export{ActionJobHandler,JavaActionJobHandler,PigActionJobHandler,HiveActionJobHandler,SqoopActionJobHandler,ShellActionJobHandler, EmailActionJobHandler,SparkActionJobHandler,MapRedActionJobHandler, Hive2ActionJobHandler, SubWFActionJobHandler, DistCpJobHandler, SshActionJobHandler};
+
+var FSActionJobHandler=ActionJobHandler.extend({
+  actionType:"fs",
+  mapping:null,
+  init(){
+    this.mapping=[
+      {xml:"name-node",domain:"nameNode"},
+      {xml:"configuration",customHandler:this.configurationMapper}
+    ];
+  },
+
+  handleImport(actionNode,json){
+    this._super(actionNode,json);
+  }
+});
+export{ActionJobHandler,JavaActionJobHandler,PigActionJobHandler,HiveActionJobHandler,SqoopActionJobHandler,ShellActionJobHandler, EmailActionJobHandler,SparkActionJobHandler,MapRedActionJobHandler, Hive2ActionJobHandler, SubWFActionJobHandler, DistCpJobHandler, SshActionJobHandler, FSActionJobHandler};

@@ -28,7 +28,13 @@
     <div class="form-group">
       <label for="inputEmail" class="control-label col-xs-2">Application<span class="requiredField">&nbsp;*</span></label>
       <div class="col-xs-7">
+              <div class="input-group">
+
         {{input type="text" class="form-control" name="class" value=actionModel.jar placeholder="jar/python"}}
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" {{action "openFileBrowser" "actionModel.jar"}}>Browse</button>
+        </span>
+        </div>
         {{#field-error error=errors.actionModel.jar}}{{/field-error}}
       </div>
     </div>
@@ -36,8 +42,13 @@
     <div class="form-group">
       <label for="inputEmail" class="control-label col-xs-2">Class</label>
       <div class="col-xs-7">
+              <div class="input-group">
         {{input type="text" class="form-control" name="class" value=actionModel.class placeholder="org.apache.spark.examples.mllib.JavaALS"}}
-      </div>
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" {{action "openFileBrowser" "actionModel.class"}}>Browse</button>
+        </span>
+        </div>
+        </div>
     </div>
     {{/if}}
     <div class="form-group">
@@ -83,9 +94,9 @@
       <div class=" panel panel-default">
         <div class="panel-body handlerPanel">
           <div class="form-group">
-            <label for="inputEmail" class="control-label col-xs-2">Resource Manager</label>
+            <label for="inputEmail" class="control-label col-xs-2">Job tracker</label>
             <div class="col-xs-7">
-              {{input type="text" class="form-control" name="job-tracker" value=actionModel.jobTracker placeholder="Resource Manager"}}
+              {{input type="text" class="form-control" name="job-tracker" value=actionModel.jobTracker placeholder="Job tracker"}}
             </div>
             {{field-error error=errors.actionModel.jobTracker}}
           </div>

@@ -32,6 +32,7 @@ body {
 .padding20{
     margin-top: 20px;
 }
+
 #arrow{
     top: 24%;
     left: -22px;
@@ -1347,4 +1348,10 @@ background: #fff;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+.labelCheckbox{
+    padding-left:35px !important;
+}
+.file-op-setting{
+   padding-left: 105px; 
 }

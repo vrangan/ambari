@@ -36,7 +36,7 @@ var ActionTypeResolver=Ember.Object.extend({
       this.actionJobHandlerMap.set("distcp",actionJobHandler.DistCpJobHandler.create(settings));
       this.actionJobHandlerMap.set("ssh",actionJobHandler.SshActionJobHandler.create(settings));
       this.actionJobHandlerMap.set("email",actionJobHandler.EmailActionJobHandler.create(settings));
-
+      this.actionJobHandlerMap.set("fs",actionJobHandler.FSActionJobHandler.create(settings));
     },
     getActionType(json){
       var self=this;

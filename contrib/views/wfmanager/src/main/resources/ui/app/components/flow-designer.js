@@ -30,7 +30,7 @@ export default Ember.Component.extend(EmberValidations,{
   workflowContext : WorkflowContext.create({}),
   workflowTitle:"",
   previewXml:"",
-  supportedActionTypes:["java", "hive", "pig", "sqoop", "shell", "spark", "map-reduce", "hive2", "sub-workflow", "distcp", "ssh"],
+  supportedActionTypes:["java", "hive", "pig", "sqoop", "shell", "spark", "map-reduce", "hive2", "sub-workflow", "distcp", "ssh", "FS"],
   workflow:null,
   showingConfirmationNewWorkflow:false,
   showingWorkflowConfigProps:false,

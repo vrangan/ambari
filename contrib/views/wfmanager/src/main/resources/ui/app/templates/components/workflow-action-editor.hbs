@@ -57,6 +57,8 @@
                   {{#ssh-action actionModel=actionModel transition=transition killNodes=killNodes openFileBrowser="openFileBrowser" register="registerChild" addKillNode="addKillNode" currentNode=currentNode}}{{/ssh-action}}
                 {{else if (eq actionType 'email')}}
                   {{#email-action actionModel=actionModel transition=transition killNodes=killNodes openFileBrowser="openFileBrowser" register="registerChild" addKillNode="addKillNode" currentNode=currentNode}}{{/email-action}}
+                {{else if (eq actionType 'fs')}}
+                  {{#fs-action actionModel=actionModel transition=transition killNodes=killNodes openFileBrowser="openFileBrowser" register="registerChild" addKillNode="addKillNode" currentNode=currentNode}}{{/fs-action}}
                 {{else if (eq actionType 'sub-workflow')}}
                   {{#sub-workflow actionModel=actionModel transition=transition killNodes=killNodes openFileBrowser="openFileBrowser" register="registerChild" addKillNode="addKillNode" currentNode=currentNode}}{{/sub-workflow}}
               {{/if}}
