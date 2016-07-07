@@ -38,7 +38,7 @@ export default Ember.Component.extend(EmberValidations,{
         Ember.set(prepareObj,"path", fileName);
         this.get('fsOps').replace(this.get('filePathModel'), 1, prepareObj);
       }else{
-        this.set('preparePath', fileName);
+        this.set('path', fileName);
       }
     }.bind(this));
     this.on('bindInputPlaceholder',function () {
@@ -49,8 +49,6 @@ export default Ember.Component.extend(EmberValidations,{
   bindInputPlaceholder : function(){
     if(this.get('addUnboundValue')){
   	let value = this.get("prepareType");
-
-
   	  if(value === "chgrp" && this.get('path') && this.get('group')){
      	  this.addPrepare();
   	  } else if(value === "move" && this.get('source') && this.get('target')){

@@ -16,220 +16,281 @@
 * limitations under the License.
 }}
 <div id="prepareHolder">
-  {{#each fsOps as |prep index|}}
-      <div class="panel panel-default">
-  <div class="panel-body">
-    <div class="form-group">
-      <div class=" col-xs-2">
-        <select class="form-control" onchange={{action (mut prep.type) value="target.value"}}>
-          <option value="mkdir" selected={{eq prep.type "mkdir"}}>mkdir</option>
-          <option value="delete" selected={{eq prep.type "delete"}}>delete</option>
-          <option value="move" selected={{eq prep.type "move"}}>move</option>
-          <option value="chmod" selected={{eq prep.type "chmod"}}>chmod</option>
-          <option value="touchz" selected={{eq prep.type "touchz"}}>touchz</option>
-          <option value="chgrp" selected={{eq prep.type "chgrp"}}>chgrp</option>
-        </select>
-      </div>
+{{#each fsOps as |prep index|}}
+<div class="panel panel-default">
+   <div class="panel-body">
+      <div class="form-group">
+         <label class="control-label col-xs-2">Operation</label>
+         <div class=" col-xs-2">
+            <select class="form-control" onchange={{action (mut prep.type) value="target.value"}}>
+            <option value="mkdir" selected={{eq prep.type "mkdir"}}>mkdir</option>
+            <option value="delete" selected={{eq prep.type "delete"}}>delete</option>
+            <option value="move" selected={{eq prep.type "move"}}>move</option>
+            <option value="chmod" selected={{eq prep.type "chmod"}}>chmod</option>
+            <option value="touchz" selected={{eq prep.type "touchz"}}>touchz</option>
+            <option value="chgrp" selected={{eq prep.type "chgrp"}}>chgrp</option>
+            </select>
+         </div>
+         </div>
+         {{#if (eq prep.type "mkdir")}}
+       <div class="form-group">
+         <label class="control-label col-xs-2">Path</label>         
+         <div class="col-xs-7">
+            <div class="input-group">
+               {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
+               <span class="input-group-btn">
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               </span>
+            </div>
+         </div>
+         <div class="col-xs-1">
+            <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
+         </div>
+       </div>  
+         {{/if}}
+         {{#if (eq prep.type "delete")}}
+       <div class="form-group">
+         <label class="control-label col-xs-2">Path</label>         
+         <div class="col-xs-7">
+            <div class="input-group">
+               {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
+               <span class="input-group-btn">
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               </span>
+            </div>
+         </div>
+         <div class="col-xs-1">
+            <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
+         </div>
+         </div>
+         {{/if}}
+         {{#if (eq prep.type "touchz")}}
+       <div class="form-group">
+         <label class="control-label col-xs-2">Path</label>         
+         <div class="col-xs-7">
+            <div class="input-group">
+               {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
+               <span class="input-group-btn">
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               </span>
+            </div>
+         </div>
+         <div class="col-xs-1">
+            <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
+         </div>
+         </div>
+         {{/if}}
+         {{#if (eq prep.type "chgrp")}}
+       <div class="form-group">
+         <label class="control-label col-xs-2">Path</label>
+         <div class=" col-xs-7">
+            <div class="input-group">
+            {{input type="text" class="form-control" name="name" value=prep.path placeholder="Path"}}
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+            </span>
+            </div>
+         </div>
+        </div>
+        <div class="form-group"> 
+         <label class="control-label col-xs-2">Group</label>
+         <div class=" col-xs-7"> 
+            {{input class="form-control" type="text" indValidations="required"  name="value" value=prep.settings.group placeholder="Group"}}
+         </div>
+         <div class="col-xs-1">
+            <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
+         </div>
+         <div class="file-op-setting">
+            <div class="col-xs-10">
+               <div class="checkbox">
+                  <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
+                  <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
+               </div>
+            </div>
+            </div>
+         </div>
+         {{/if}}  
+         {{#if (eq prep.type "move")}}
+         <div class="form-group">
+            <label class="control-label col-xs-2">Source</label>
+            <div class=" col-xs-7">
+              <div class="input-group">
+                 {{input type="text" class="form-control" name="name" value=prep.settings.source placeholder="Source"}}
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+            </span>
+            </div>
+            </div>
+		</div>
+        <div class="form-group">
+    
+            <label class="control-label col-xs-2">Target</label>
+            <div class=" col-xs-7">
+              <div class="input-group">
+               {{input class="form-control" type="text" indValidations="required"  name="value" value=prep.settings.target placeholder="Target"}}
+               <span class="input-group-btn">
+                 <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               </span>
+              </div>
+            </div>
+            <div class="col-xs-1">
+               <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
+            </div>
+         </div>
+         {{/if}}    
+         {{#if (eq prep.type "chmod")}}
+         <div class="form-group">
 
-    {{#if (eq prep.type "mkdir")}}
-    <div class="col-xs-5">
-      <div class="input-group">
-        {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
-        </span>
-      </div>
-    </div>
-      <div class="col-xs-1">
-        <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
-      </div>    
-  {{/if}}
-    {{#if (eq prep.type "delete")}}
-    <div class="col-xs-5">
-      <div class="input-group">
-        {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
-        </span>
-      </div>
-    </div>
-      <div class="col-xs-1">
-        <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
-      </div>    
-  {{/if}}
-   {{#if (eq prep.type "touchz")}}
-    <div class="col-xs-5">
-      <div class="input-group">
-        {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
-        </span>
-      </div>
-    </div>
-      <div class="col-xs-1">
-        <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
-      </div>    
-  {{/if}}
-  {{#if (eq prep.type "chgrp")}}
-	    <label class="control-label col-xs-1">Path</label>
-	    <div class=" col-xs-3">
-	      {{input type="text" class="form-control" name="name" value=prep.path placeholder="Path"}}
-	    </div>
-	      <label class="control-label col-xs-1">Group</label>
-	    <div class=" col-xs-3"> 
-	      {{input class="form-control" type="text" indValidations="required"  name="value" value=prep.settings.group placeholder="Group"}}
-	    </div>
-	          <div class="col-xs-1">
-        <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
-      </div>
-		<div class="file-op-setting">
-
-	    <div class="col-xs-10">
-	      <div class="checkbox">
-	        <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-	        <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
-	      </div>
-	   </div>
-
-
-	   </div>
-  {{/if}}  
-  {{#if (eq prep.type "move")}}
-    <div class="form-group">
-	    <label class="control-label col-xs-1">Source</label>
-	    <div class=" col-xs-3">
-	      {{input type="text" class="form-control" name="name" value=prep.settings.source placeholder="Source"}}
-	    </div>
-	      <label class="control-label col-xs-1">Target</label>
-	    <div class=" col-xs-3">
-	      {{input class="form-control" type="text" indValidations="required"  name="value" value=prep.settings.target placeholder="Target"}}
-	    </div>
-      <div class="col-xs-1">
-        <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
-      </div>	    
-	</div>
-  {{/if}}    
-  {{#if (eq prep.type "chmod")}}
-	    <label class="control-label col-xs-1">Path</label>
-	    <div class=" col-xs-3">
-	      {{input type="text" class="form-control" name="name" value=prep.settings.path placeholder="Path"}}
-	    </div>
-	      <label class="control-label col-xs-2">Permissions</label>
-	    <div class=" col-xs-3">
-	      {{input class="form-control" type="text" indValidations="required"  name="value" value=prep.settings.permissions placeholder="Permissions"}}
-	    </div>
-      <div class="col-xs-1">
-        <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
-      </div>	    
-	    <div class="file-op-setting">
-
-	    <div class="col-xs-10">
-	      <div class="checkbox">
-	        <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-	        <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
-	      </div>
-	   </div>
-
-    </div>
-  {{/if}}
-
-  </div>
-  </div>
-  </div>
-  {{/each}}
-    <div class="panel panel-default">
-  <div class="panel-body">
-  <div class="form-group">
-    <div class=" col-xs-2">
-      <select class="form-control" onchange={{action "onPrepareTypeChange" value="target.value"}}>
-        <option value="mkdir">mkdir</option>
-        <option value="delete">delete</option>
-        <option value="move">move</option>
-        <option value="chmod">chmod</option>
-        <option value="touchz">touchz</option>
-        <option value="chgrp">chgrp</option>
-      </select>
-    </div>
-    {{#if mkdirORdeleteORtouchz}}
-    <div class="col-xs-5">
-      <div class="input-group">
-        {{input type="text" class="form-control" value=path placeholder="path of the directory"}}
-        <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
-        </span>
-      </div>
-    </div>
-    <div class="col-xs-1">
-      <input class="form-control  btn btn-success" type="button" {{action "addPrepare"}} value="+">
-    </div>
-  {{/if}}
-
-
-  {{#if chgrp}}
-	    <label class="control-label col-xs-1">Path</label>
-	    <div class=" col-xs-3">
-	      {{input type="text" class="form-control" name="name" value=path placeholder="Path"}}
-	    </div>
-	      <label class="control-label col-xs-1">Group</label>
-	    <div class=" col-xs-3"> 
-	      {{input class="form-control" type="text" indValidations="required"  name="value" value=group placeholder="Group"}}
-	    </div>
-	    <div class="col-xs-1">
-	      <input class="form-control btn btn-success" type="button" {{action "addPrepare"}} value="+">
-	    </div>
-		<div class="file-op-setting">
-
-	    <div class="col-xs-10">
-	      <div class="checkbox">
-	        <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-	        <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
-	      </div>
-	   </div>
-	</div>
-  {{/if}}  
-
-
-  {{#if move}}
-
-    <div class="form-group">
-	    <label class="control-label col-xs-1">Source</label>
-	    <div class=" col-xs-3">
-	      {{input type="text" class="form-control" name="name" value=source placeholder="Source"}}
-	    </div>
-	      <label class="control-label col-xs-1">Target</label>
-	    <div class=" col-xs-3">
-	      {{input class="form-control" type="text" indValidations="required"  name="value" value=target placeholder="Target"}}
-	    </div>
-	    <div class="col-xs-1">
-	      <input class="form-control btn btn-success" type="button" {{action "addPrepare"}} value="+">
-	    </div>
-	</div>
-
-  {{/if}}    
-  {{#if chmod}}
-	    <label class="control-label col-xs-1">Path</label>
-	    <div class=" col-xs-3">
-	      {{input type="text" class="form-control" name="name" value=path placeholder="Path"}}
-	    </div>
-	      <label class="control-label col-xs-2">Permissions</label>
-	    <div class=" col-xs-3">
-	      {{input class="form-control" type="text" indValidations="required"  name="value" value=permissions placeholder="Permissions"}}
-	    </div>
-	    <div class="col-xs-1">
-	      <input class="form-control btn btn-success" type="button" {{action "addPrepare"}} value="+">
-	    </div>
-		<div class="file-op-setting">
-
-	    <div class="col-xs-10">
-	      <div class="checkbox">
-	        <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-	        <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
-	      </div>
-	   </div>
-	   </div>
-  {{/if}}
-  </div>
-
+         <label class="control-label col-xs-2">Path</label>
+         <div class=" col-xs-7">
+            <div class="input-group">
+             {{input type="text" class="form-control" name="name" value=prep.settings.path placeholder="Path"}}
+             <span class="input-group-btn">
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+             </span>
+            </div> 
+         </div>
+         </div>
+         <div class="form-group">
+         <label class="control-label col-xs-2">Permissions</label>
+         <div class=" col-xs-7">
+            {{input class="form-control" type="text" indValidations="required"  name="value" value=prep.settings.permissions placeholder="Permissions"}}
+         </div>
+         <div class="col-xs-1">
+            <input class="form-control btn btn-danger" type="button" {{action "deletePrepare" index}} value="-">
+         </div>
+         <div class="file-op-setting">
+            <div class="col-xs-10">
+               <div class="checkbox">
+                  <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
+                  <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
+               </div>
+            </div>
+         </div>
+         </div>
+         {{/if}}
+   </div>
 </div>
-	</div>
-	</div>
+{{/each}}
+<div class="panel panel-default">
+<div class="panel-body">
+   <div class="form-group">
+      <label class="control-label col-xs-2">Operation</label>
+      <div class=" col-xs-2">
+         <select class="form-control" onchange={{action "onPrepareTypeChange" value="target.value"}}>
+         <option value="mkdir">mkdir</option>
+         <option value="delete">delete</option>
+         <option value="move">move</option>
+         <option value="chmod">chmod</option>
+         <option value="touchz">touchz</option>
+         <option value="chgrp">chgrp</option>
+         </select>
+      </div>
+   </div>
+   {{#if mkdirORdeleteORtouchz}}
+   <div class="form-group">
+      <label class="control-label col-xs-2">Path</label>
+      <div class="col-xs-7">
+         <div class="input-group">
+            {{input type="text" class="form-control" value=path placeholder="path of the directory"}}
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+            </span>
+         </div>
+      </div>
+      <div class="col-xs-1">
+         <input class="form-control  btn btn-success" type="button" {{action "addPrepare"}} value="+">
+      </div>
+   </div>
+   {{/if}}
+   {{#if chgrp}}
+   <div class="form-group">
+      <label class="control-label col-xs-2">Path</label>
+      <div class=" col-xs-7">
+        <div class="input-group">
+           {{input type="text" class="form-control" name="name" value=path placeholder="Path"}}
+           <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+           </span>
+        </div>  
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-xs-2">Group</label>
+      <div class=" col-xs-7"> 
+         {{input class="form-control" type="text" indValidations="required"  name="value" value=group placeholder="Group"}}
+      </div>
+      <div class="col-xs-1">
+         <input class="form-control btn btn-success" type="button" {{action "addPrepare"}} value="+">
+      </div>
+      <div class="file-op-setting">
+         <div class="col-xs-10">
+            <div class="checkbox">
+               <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
+               <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
+            </div>
+         </div>
+      </div>
+      </div>
+      {{/if}}  
+      {{#if move}}
+      <div class="form-group">
+         <label class="control-label col-xs-2">Source</label>
+         <div class=" col-xs-7">
+            <div class="input-group">
+	            {{input type="text" class="form-control" name="name" value=source placeholder="Source"}}
+	            <span class="input-group-btn">
+	            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+	            </span>
+            </div>
+         </div>
+      </div>
+      <div class="form-group">
+         <label class="control-label col-xs-2">Target</label>
+         <div class=" col-xs-7">
+            <div class="input-group">
+            {{input class="form-control" type="text" indValidations="required"  name="value" value=target placeholder="Target"}}
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+            </span>
+            </div>
+         </div>
+         <div class="col-xs-1">
+            <input class="form-control btn btn-success" type="button" {{action "addPrepare"}} value="+">
+         </div>
+      </div>
+      {{/if}}    
+      {{#if chmod}}
+      <div class="form-group">
+      <label class="control-label col-xs-2">Path</label>
+      <div class=" col-xs-7">
+      <div class="input-group">
+         {{input type="text" class="form-control" name="name" value=path placeholder="Path"}}
+            <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+            </span>
+      </div> 
+      </div>
+      </div>
+      <div class="form-group">
+      <label class="control-label col-xs-2">Permissions</label>
+
+      <div class=" col-xs-7">
+         {{input class="form-control" type="text" indValidations="required"  name="value" value=permissions  placeholder="Permissions"}} 
+      </div>    
+      <div class="col-xs-1">
+         <input class="form-control btn btn-success" type="button" {{action "addPrepare"}} value="+">
+      </div>
+      <div class="file-op-setting">
+         <div class="col-xs-10">
+            <div class="checkbox">
+               <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
+               <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
+            </div>
+         </div>
+      </div>
+      </div>
+      {{/if}}
+   </div>
+   </div>
+</div>

@@ -35,7 +35,8 @@ export default Ember.Component.extend(EmberValidations, Ember.Evented,{
       "ssh": "terminal",
       "sub-workflow":"share-alt-square",
       "stream": "exchange",
-      "email": "envelop"
+      "email": "envelop",
+      "fs":"folder-o"
   },
   clonedActionModel : {},
   showingFileBrowser : false,

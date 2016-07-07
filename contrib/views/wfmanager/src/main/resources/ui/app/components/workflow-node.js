@@ -32,7 +32,8 @@ export default Ember.Component.extend(Ember.Evented,{
       "ssh": "terminal",
       "sub-workflow":"share-alt-square",
       "stream": "exchange",
-      "email": "envelop"
+      "email": "envelop",
+      "fs":"folder-o"
   },
   icon : Ember.computed('actionIcons',function(){
     return this.get('actionIcons')[this.get('node.actionType')];
