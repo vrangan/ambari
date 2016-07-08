@@ -39,7 +39,7 @@
             <div class="input-group">
                {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
                <span class="input-group-btn">
-               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser" index}}>Browse</button>
                </span>
             </div>
          </div>
@@ -55,7 +55,7 @@
             <div class="input-group">
                {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
                <span class="input-group-btn">
-               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser" index}}>Browse</button>
                </span>
             </div>
          </div>
@@ -71,7 +71,7 @@
             <div class="input-group">
                {{input type="text" class="form-control" value=prep.settings.path placeholder="path of the directory"}}
                <span class="input-group-btn">
-               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser" index}}>Browse</button>
                </span>
             </div>
          </div>
@@ -85,9 +85,9 @@
          <label class="control-label col-xs-2">Path</label>
          <div class=" col-xs-7">
             <div class="input-group">
-            {{input type="text" class="form-control" name="name" value=prep.path placeholder="Path"}}
+            {{input type="text" class="form-control" name="name" value=prep.settings.path placeholder="Path"}}
             <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+            <button class="btn btn-primary" type="button" {{action "openFileBrowser" index}}>Browse</button>
             </span>
             </div>
          </div>
@@ -103,9 +103,9 @@
          <div class="file-op-setting">
             <div class="col-xs-10">
                <div class="checkbox">
-                  <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-                  <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
-               </div>
+                  <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="recursive" checked=prep.settings.recursive}}Recursive</label>
+                  <label class="labelCheckbox" title="">{{input type="checkbox" name="dirfiles" checked=prep.settings.dirfiles}}Dir-files</label>
+                </div>
             </div>
             </div>
          </div>
@@ -117,7 +117,7 @@
               <div class="input-group">
                  {{input type="text" class="form-control" name="name" value=prep.settings.source placeholder="Source"}}
             <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+            <button class="btn btn-primary" type="button" {{action "openFileBrowser" index}}>Browse</button>
             </span>
             </div>
             </div>
@@ -129,7 +129,7 @@
               <div class="input-group">
                {{input class="form-control" type="text" indValidations="required"  name="value" value=prep.settings.target placeholder="Target"}}
                <span class="input-group-btn">
-                 <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+                 <button class="btn btn-primary" type="button" {{action "openFileBrowser" index}}>Browse</button>
                </span>
               </div>
             </div>
@@ -146,7 +146,7 @@
             <div class="input-group">
              {{input type="text" class="form-control" name="name" value=prep.settings.path placeholder="Path"}}
              <span class="input-group-btn">
-               <button class="btn btn-primary" type="button" {{action "openFileBrowser"}}>Browse</button>
+               <button class="btn btn-primary" type="button" {{action "openFileBrowser" index}}>Browse</button>
              </span>
             </div> 
          </div>
@@ -162,8 +162,8 @@
          <div class="file-op-setting">
             <div class="col-xs-10">
                <div class="checkbox">
-                  <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-                  <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
+                  <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="recursive" checked=prep.settings.recursive}}Recursive</label>
+                  <label class="labelCheckbox" title="">{{input type="checkbox" name="dirfiles" checked=prep.settings.dirfiles}}Dir-files</label>
                </div>
             </div>
          </div>
@@ -226,8 +226,8 @@
       <div class="file-op-setting">
          <div class="col-xs-10">
             <div class="checkbox">
-               <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-               <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
+               <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="recursive" checked=recursive}}Recursive</label>
+               <label class="labelCheckbox" title="">{{input type="checkbox" name="dirFiles" checked=dirFiles}}Dir-files</label>
             </div>
          </div>
       </div>
@@ -284,8 +284,8 @@
       <div class="file-op-setting">
          <div class="col-xs-10">
             <div class="checkbox">
-               <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Recursive</label>
-               <label class="labelCheckbox" title="">{{input type="checkbox" name="capture-output" checked=actionModel.captureOutput}}Dir-files</label>
+               <label class="labelCheckbox" style="padding-left:20px;" title="">{{input type="checkbox" name="recursive" checked=recursive}}Recursive</label>
+               <label class="labelCheckbox" title="">{{input type="checkbox" name="dirFiles" checked=dirFiles}}Dir-files</label>
             </div>
          </div>
       </div>

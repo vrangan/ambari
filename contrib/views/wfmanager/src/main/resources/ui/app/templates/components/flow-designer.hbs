@@ -57,12 +57,29 @@
           </button>
           {{/link-to}}
         </div>
-
         <div class="btn-group">
-          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#kill-node-dialog" title="Create Kill Node" {{action "showCreateKillNode" true}}>
+
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Settings
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:void(0)" title="SLA for Workflow" {{action "showWorkflowSla" true}}> 
+                    SLA for Workflow
+                  </a></li>
+              <li><a href="javascript:void(0)" title="Global Configurations" {{action "showWorkflowGlobalProps"}}>
+                    Global Configurations
+              </a></li>
+              <li><a href="javascript:void(0)" title="Workflow and Action Versions" {{action "showVersionSettings" true}}>
+                    Workflow and Action Versions
+              </a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="btn-group">
+         <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#kill-node-dialog" title="Create Kill Node" {{action "showCreateKillNode" true}}>
               <i class="fa fa-ban"></i>
           </button>
-          <button type="button" class="btn btn-default" title="SLA for Workflow" {{action "showWorkflowSla" true}}>
+          <!--button type="button" class="btn btn-default" title="SLA for Workflow" {{action "showWorkflowSla" true}}>
             s<i class="fa fa-cog" aria-hidden="true"></i>
           </button>
           <button type="button" class="btn btn-default" title="Global Configurations" {{action "showWorkflowGlobalProps"}}>
@@ -70,7 +87,7 @@
           </button>
           <button type="button" class="btn btn-default" title="Workflow and Action Versions" {{action "showVersionSettings" true}}>
             v<i class="fa fa-cog"></i>
-          </button>
+          </button-->
           <button  data-toggle="modal" data-target="#previewModal"  type="button" class="btn btn-default" title="Preview workflow" {{action "previewWorkflow"}}>
               <i class="fa fa-eye"></i>
           </button>

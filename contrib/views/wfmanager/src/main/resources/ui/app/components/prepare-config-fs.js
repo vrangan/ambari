@@ -34,9 +34,19 @@ export default Ember.Component.extend(EmberValidations,{
   initialize : function(){
     this.on('fileSelected',function(fileName){
       if(!Ember.isBlank(this.get('filePathModel'))){
-        var prepareObj = this.get('fsOps').objectAt(this.get('filePathModel'));
+        //var prepareObj = this.get('fsOps').objectAt(this.get('filePathModel'));
+        var prepareObj = {};
         Ember.set(prepareObj,"path", fileName);
-        this.get('fsOps').replace(this.get('filePathModel'), 1, prepareObj);
+        var settingsObj = {};
+        Ember.set(settingsObj,"settings", prepareObj);
+        Ember.set(settingsObj,"type", "mkdir");
+        console.log("----------fileops");
+        console.log(this.get('fsOps'));
+        console.log(this.get('filePathModel'));
+        console.log(prepareObj);
+        this.get('fsOps').replace(this.get('filePathModel'), 1, settingsObj);
+        console.log(this.get('fsOps'));
+
       }else{
         this.set('path', fileName);
       }
@@ -64,18 +74,24 @@ export default Ember.Component.extend(EmberValidations,{
   addPrepare : function (){
   	let value = this.get("prepareType");
   	  if(value === "chgrp"){
-	      this.get('fsOps').pushObject({settings:{path:this.get('path'),group:this.get('group')}, type:value});
+	      this.get('fsOps').pushObject({settings:{path:this.get('path'),group:this.get('group'), recursive:this.get('recursive'), dirfiles:this.get('dirFiles')}, type:value});
   	  } else if(value === "move"){
 	      this.get('fsOps').pushObject({settings:{source:this.get('source'),target:this.get('target')}, type:value});
   	  } else if(value === "chmod"){
-	      this.get('fsOps').pushObject({settings:{path:this.get('path'),permissions:this.get('permissions')}, type:value});
+	      this.get('fsOps').pushObject({settings:{path:this.get('path'),permissions:this.get('permissions'), recursive:this.get('recursive'), dirfiles:this.get('dirFiles')}, type:value});
   	  } else if(value === "mkdir" || value === "delete" || value === "touchz"){
 	      this.get('fsOps').pushObject({settings:{path:this.get('path')}, type:value});
       }
       console.log("---------prepare-----------");
       console.log(this.get('fsOps'));
       this.set('prepareType', "mkdir");
-      this.set('preparePath', "");
+      this.set('path', "");
+      this.set('source', "");
+      this.set('target', "");
+      this.set('group', "");
+      this.set('permissions', "");
+      this.set('recursive', false);
+      this.set('dirFiles', false);
   },
   toggleAllFields : function(){
       this.set("mkdir", 0);
