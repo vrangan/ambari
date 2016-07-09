@@ -139,7 +139,7 @@ var ActionNodeHandler= NodeHandler.extend({
   },
   handleSla(domain,nodeObj){
     if (domain.slaEnabled){
-        return this.slaMapper.hanldeGeneration(domain.slaInfo,nodeObj);
+      return this.slaMapper.hanldeGeneration(domain.slaInfo,nodeObj);
     }
   },
 
@@ -169,10 +169,8 @@ var ActionNodeHandler= NodeHandler.extend({
     }
     actionJobHandler.handleImport(actionNode,nodeJson[actionType]);
     if (nodeJson.info && nodeJson.info.__prefix==="sla") {//SLA info
-      var sla=actionNode.domain.info=SlaInfo.create({});
-      if (nodeJson.info["nominal-time"]){
-          sla.nominalTime=nodeJson.info["nominal-time"];
-      }
+      actionNode.domain.slaEnabled=true;
+      this.slaMapper.handleImport(actionNode.domain,nodeJson.info,"slaInfo");
     }
     return actionNode;
   },

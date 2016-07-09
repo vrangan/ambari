@@ -50,6 +50,9 @@ var WorkflowXmlMapper= Ember.Object.extend({
   },
   handleSLAMapping(sla,workflowObj){
     this.get("slaMapper").hanldeGeneration(sla,workflowObj);
+  },
+  handleSLAImport(workflow,infoJson){
+    this.slaMapper.handleImport(workflow,infoJson,"sla");
   }
 });
 var GlobalConfigHandler=Ember.Object.extend(MappingMixin,{

@@ -36,6 +36,10 @@ var WorkflowImporter= Ember.Object.extend({
     var workflowAppJson=workflowJson["workflow-app"];
     var workflowVersion=CommonUtils.extractSchemaVersion(workflowAppJson._xmlns);
     workflow.schemaVersions.setCurrentWorkflowVersion(workflowVersion);
+    if (workflowAppJson.info && workflowAppJson.info.__prefix==="sla") {//SLA info
+      workflow.slaEnabled=true;
+      this.workflowMapper.handleSLAImport(workflow,workflowAppJson.info);
+    }
     var nodeMap=this.setupNodeMap(workflowAppJson,workflow);
     this.setupTransitions(workflowAppJson,nodeMap);
     console.log("node map==",nodeMap);
