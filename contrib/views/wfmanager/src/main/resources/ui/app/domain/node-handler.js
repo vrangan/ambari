@@ -18,9 +18,11 @@
 import Ember from 'ember';
 import {NodeFactory} from '../domain/node-factory';
 import * as actionJobHandler from '../domain/actionjob_hanlder';
+import {SlaInfo} from '../domain/sla-info';
+import {SLAMapper} from "../domain/mapping-utils";
 var ActionTypeResolver=Ember.Object.extend({
     actionJobHandlerMap:null,
-    validStandardActionProps:["ok","error","sla:info"],
+    validStandardActionProps:["ok","error","info"],
     init(){
       var settings={schemaVersions:this.schemaVersions};
       this.actionJobHandlerMap=new Map();
@@ -132,8 +134,15 @@ var ActionNodeHandler= NodeHandler.extend({
   type:"action",
   actionTypeResolver:null,
   schemaVersions: null,
+  slaMapper: SLAMapper.create({}),
   init(){
   },
+  handleSla(domain,nodeObj){
+    if (domain.slaEnabled){
+        return this.slaMapper.hanldeGeneration(domain.slaInfo,nodeObj);
+    }
+  },
+
   handleTransitions(transitions,nodeObj){
     transitions.forEach(function(tran){
       if (!tran.condition){
@@ -159,6 +168,12 @@ var ActionNodeHandler= NodeHandler.extend({
       return actionNode;
     }
     actionJobHandler.handleImport(actionNode,nodeJson[actionType]);
+    if (nodeJson.info && nodeJson.info.__prefix==="sla") {//SLA info
+      var sla=actionNode.domain.info=SlaInfo.create({});
+      if (nodeJson.info["nominal-time"]){
+          sla.nominalTime=nodeJson.info["nominal-time"];
+      }
+    }
     return actionNode;
   },
   handleImportTransitions(node,json,nodeMap){

@@ -203,4 +203,25 @@ var PrepareMapper= Ember.Object.extend({
     }
   }
 });
-export {MappingMixin,ConfigurationMapper,PrepareMapper};
+var SLAMapper= Ember.Object.extend({
+  hanldeGeneration(sla,nodeObj){
+    if (sla){
+        var slaInfo=nodeObj["info"]={};
+        slaInfo["__prefix"]="sla";
+        if (sla.nominalTime){
+            slaInfo["nominal-time"]=sla.nominalTime;
+        }
+        if (sla.shouldStart){
+          slaInfo["should-start"]="${"+sla.shouldStart.time+ "*"+sla.shouldStart.unit+"}";
+        }
+        if (sla.shouldEnd){
+          slaInfo["should-end"]="${"+sla.shouldEnd.time+ "*"+sla.shouldEnd.unit+"}";
+        }
+    }
+    return nodeObj;
+  },
+  handleImport(domain,nodeObj){
+
+  }
+});
+export {MappingMixin,ConfigurationMapper,PrepareMapper,SLAMapper};

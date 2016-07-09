@@ -22,14 +22,10 @@ var NodeVisitor = Ember.Object.extend({
     return this.visitNode(node,callback,context,visitedNodes);
   },
   visitNode(node,callback,context,visitedNodes){
-    // if (!visitedNodes){
-    //   visitedNodes=[];
-    // }
     if (visitedNodes.contains(node.get("id"))){
       return;
     }
     visitedNodes.push(node.get("id"));
-    //TODO
     callback(node,context);
     var self=this;
     if (node.transitions){

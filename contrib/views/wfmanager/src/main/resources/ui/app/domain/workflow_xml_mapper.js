@@ -17,16 +17,19 @@
 
 import Ember from 'ember';
 import * as nodeHandler from '../domain/node-handler';
+import {SLAMapper} from "../domain/mapping-utils";
 
 import {MappingMixin,ConfigurationMapper} from "../domain/mapping-utils";
 var WorkflowXmlMapper= Ember.Object.extend({
   nodeHandlerMap:null,
   globalConfigHandler:null,
   actionTypeResolver:null,
+  slaMapper: SLAMapper.create({}),
   schemaVersions:null,
   init: function() {
     this.actionTypeResolver=nodeHandler.ActionTypeResolver.create({schemaVersions:this.schemaVersions});
     this.set("globalConfigHandler",GlobalConfigHandler.create({}));
+    this.set("slaMapper",SLAMapper.create({}));
     this.nodeHandlerMap=new Map();
     this.nodeHandlerMap.set("start",nodeHandler.StartNodeHandler.create({}));
     this.nodeHandlerMap.set("end",nodeHandler.EndNodeHandler.create({}));
@@ -45,6 +48,9 @@ var WorkflowXmlMapper= Ember.Object.extend({
   getActionJobHandler(jobType){
     return this.actionTypeResolver.getActionJobHandler(jobType);
   },
+  handleSLAMapping(sla,workflowObj){
+    this.get("slaMapper").hanldeGeneration(sla,workflowObj);
+  }
 });
 var GlobalConfigHandler=Ember.Object.extend(MappingMixin,{
   mapping:null,

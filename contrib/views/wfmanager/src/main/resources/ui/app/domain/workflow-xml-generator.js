@@ -39,6 +39,9 @@ var WorkflowGenerator= Ember.Object.extend({
     var workflowObj={"workflow-app":{}};
     this.get("workflowMapper").getGlobalConfigHandler().handle(this.workflow.get("globalSetting"),workflowObj["workflow-app"]);
     this.visitNode(workflowObj,this.workflow.startNode);
+    if (this.workflow.slaEnabled===true){
+      this.get("workflowMapper").handleSLAMapping(this.workflow.sla,workflowObj["workflow-app"]);
+    }
   //  this.nodeVisitor.process(this.workflow.startNode,this.handleNode,{workflowObj:workflowObj});
     console.log("workflowObj==",workflowObj);
     if (!workflowObj["workflow-app"].action || workflowObj["workflow-app"].action.length<1){
@@ -49,12 +52,27 @@ var WorkflowGenerator= Ember.Object.extend({
     var srcWorkflowApp=workflowObj["workflow-app"];
     var targetWorkflowApp=reordered["workflow-app"];
     targetWorkflowApp["_name"]=this.workflow.get("name");
-    this.copyProp(srcWorkflowApp,targetWorkflowApp,["global","start","decision","fork","join","action","kill","end"]);
+    this.copyProp(srcWorkflowApp,targetWorkflowApp,["global","start","decision","fork","join","action","kill","end","info"]);
     targetWorkflowApp["_xmlns"]="uri:oozie:workflow:"+this.workflow.get("schemaVersions").getCurrentWorkflowVersion();
    // targetWorkflowApp["__cdata"]=Constants.generatedByCdata;
+    if (this.slaInfoExists(targetWorkflowApp)){
+      targetWorkflowApp["_xmlns:sla"]="uri:oozie:sla:0.2";
+    }
     var xmlAsStr = this.get("x2js").json2xml_str(reordered);
     console.log("Generated Workflow XML==",xmlAsStr);
     return xmlAsStr;
+  },
+  slaInfoExists(workflowApp){
+    if (workflowApp.info){//global sla
+      return true;
+    }
+    var slaExists= false;
+    workflowApp.action.forEach(function(action){
+      if (action.info){
+        slaExists=true;
+      }
+    });
+    return slaExists;
   },
   copyProp(src,dest,props){
     props.forEach(function(prop){
@@ -63,51 +81,7 @@ var WorkflowGenerator= Ember.Object.extend({
       }
     });
   },
-  handleNode(node,context){
-    var nodeHandler=this.get("workflowMapper").getNodeHandler(node.type);
-    nodeHandler.setContext(this.workflowContext);
-    var nodeObj=nodeHandler.handleNode(node);
-    if (node.isActionNode()){
-      var jobHandler=this.get("workflowMapper").getActionJobHandler(node.actionType);
-      if (jobHandler){
 
-        jobHandler.setContext(this.workflowContext);
-        if (!node.get("domain")){
-          console.error("action details are not present");//todo error handling
-          this.workflowContext.addError({node : node, message : "Action Properties are empty"});
-        }else{
-          //var globalSetting=workflowObj["workflow-app"].global;
-          // if (!globalSetting){
-          //   if (!Ember.isBlank(globalSetting["job-tracker"])){
-          //     if (!Ember.isBlank(node.get("domain").get("jobTracker"))){
-          //       node.get("domain").set("jobTracker","${job-tracker}");
-          //     }
-          //   }
-          //   if (!Ember.isBlank(globalSetting["name-node"])){
-          //     if (!Ember.isBlank(node.get("domain").get("nameNode"))){
-          //       node.get("domain").set("nameNode","${name-node}");
-          //     }
-          //   }
-          // }
-          jobHandler.handle(node.get("domain"),nodeObj,node.get("name"));
-
-        }
-      }else{
-        console.error("Unknown action "+node.actionType);
-        this.workflowContext.addError({node : node, message : "Unknown action:"+node.actionType});
-      }
-    }
-    if (nodeHandler.hasMany()){
-        if (!workflowApp[node.type]){
-            workflowApp[node.type]=[];
-        }
-      workflowApp[node.type].push(nodeObj);
-    }else{
-      workflowApp[node.type]=nodeObj;
-    }
-    nodeHandler.handleTransitions(node.transitions,nodeObj);
-
-  },
   visitNode(workflowObj,node,visitedNodes){
     if (!visitedNodes){
       visitedNodes=[];
@@ -177,6 +151,9 @@ var WorkflowGenerator= Ember.Object.extend({
       node.transitions.forEach(function(tran){
         self.visitNode(workflowObj,tran.targetNode,visitedNodes);
       });
+    }
+    if (node.isActionNode()){
+      nodeHandler.handleSla(node.domain,nodeObj);
     }
   }
 });
