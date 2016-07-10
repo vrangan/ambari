@@ -338,7 +338,40 @@ var FSActionJobHandler=ActionJobHandler.extend({
       {xml:"configuration",customHandler:this.configurationMapper}
     ];
   },
-
+  handle(nodeDomain,nodeObj,nodeName){
+    this._super(nodeDomain,nodeObj,nodeName);
+    nodeDomain.fsOps.forEach(function(fsop){
+      if (!nodeObj.fs[fsop.type]){
+        nodeObj.fs[fsop.type]=[];
+      }
+      switch (fsop.type) {
+        case "delete":
+          nodeObj.fs["delete"].push({"_path":fsop.settings.path});
+          break;
+        case "mkdir":
+          nodeObj.fs["mkdir"].push({"_path":fsop.settings.path});
+          break;
+        case "move":
+          nodeObj.fs["move"].push({"_path":fsop.settings.path});
+          break;
+        case "chmod":
+          var conf={"_path":fsop.settings.path,"_permissions":fsop.settings.permissions,"_dir-files":fsop.settings.dirfiles};
+          if (fsop.settings.recursive){
+            conf["recursive"]="";
+          }
+          nodeObj.fs["chmod"].push(conf);
+        case "touchz":
+          nodeObj.fs["touchz"].push({"_path":fsop.settings.path});
+        case "chgrp":
+          var conf={"_path":fsop.settings.path,"_group":fsop.settings.permissions,"_dir-files":fsop.settings.dirfiles};
+          if (fsop.settings.recursive){
+            conf["recursive"]="";
+          }
+          nodeObj.fs["chgrp"].push(conf);
+        default:
+      }
+    });
+  },
   handleImport(actionNode,json){
     this._super(actionNode,json);
   }
