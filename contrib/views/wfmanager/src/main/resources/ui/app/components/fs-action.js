@@ -34,7 +34,7 @@ export default Ember.Component.extend(EmberValidations, {
     this.on('fileSelected',function(fileName){
       this.set(this.get('filePathModel'), fileName);
     }.bind(this));
-    this.sendAction('register','javaAction', this);
+    this.sendAction('register','fsAction', this);
     //this.set('clonedActionModel',Ember.copy(this.get('actionModel')));
   }.on('didInsertElement'),
   observeError :function(){

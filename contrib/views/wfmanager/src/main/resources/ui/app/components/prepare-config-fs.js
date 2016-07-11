@@ -57,7 +57,8 @@ export default Ember.Component.extend(EmberValidations,{
     this.sendAction('register', 'fsOps', this);
   }.on('init'),
   bindInputPlaceholder : function(){
-    if(this.get('addUnboundValue')){
+    let type = this.get("prepareType");
+    if(this.validateOperations(type)){
   	let value = this.get("prepareType");
   	  if(value === "chgrp" && this.get('path') && this.get('group')){
      	  this.addPrepare();
@@ -68,22 +69,32 @@ export default Ember.Component.extend(EmberValidations,{
   	  } else if(value === "mkdir" || value === "delete" || value === "touchz"  && this.get('path')){
      	  this.addPrepare();
       }
-
     }
   }.on('willDestroyElement'),
+
   addPrepare : function (){
   	let value = this.get("prepareType");
-  	  if(value === "chgrp"){
-	      this.get('fsOps').pushObject({settings:{path:this.get('path'),group:this.get('group'), recursive:this.get('recursive'), dirfiles:this.get('dirFiles')}, type:value});
-  	  } else if(value === "move"){
-	      this.get('fsOps').pushObject({settings:{source:this.get('source'),target:this.get('target')}, type:value});
-  	  } else if(value === "chmod"){
-	      this.get('fsOps').pushObject({settings:{path:this.get('path'),permissions:this.get('permissions'), recursive:this.get('recursive'), dirfiles:this.get('dirFiles')}, type:value});
-  	  } else if(value === "mkdir" || value === "delete" || value === "touchz"){
-	      this.get('fsOps').pushObject({settings:{path:this.get('path')}, type:value});
-      }
+  	    switch (value) {
+  	    	case "mkdir":
+  	    	case "delete":
+  	    	case "touchz":
+	    	    this.get('fsOps').pushObject({settings:{path:this.get('path')}, type:value});
+	    	break;
+	    	case "chmod":
+	      		this.get('fsOps').pushObject({settings:{path:this.get('path'),permissions:this.get('permissions'), recursive:this.get('recursive'), dirfiles:this.get('dirFiles')}, type:value});
+	    	break;
+	    	case "chgrp":
+	      		this.get('fsOps').pushObject({settings:{path:this.get('path'),group:this.get('group'), recursive:this.get('recursive'), dirfiles:this.get('dirFiles')}, type:value});
+	    	break;
+	    	case "move":
+	      		this.get('fsOps').pushObject({settings:{source:this.get('source'),target:this.get('target')}, type:value});
+	    	break; 
+  	    }
       console.log("---------prepare-----------");
       console.log(this.get('fsOps'));
+      this.resetFields();
+  },
+  resetFields : function() {
       this.set('prepareType', "mkdir");
       this.set('path', "");
       this.set('source', "");
@@ -101,6 +112,35 @@ export default Ember.Component.extend(EmberValidations,{
       this.set("chmod", 0);
       this.set("move", 0);
       this.set("chgrp", 0);
+  },
+  validateOperations : function(type){
+  	console.log(type+" is type");
+  	var flag = true;
+  	    switch (type) {
+  	    	case "mkdir":
+  	    	case "delete":
+  	    	case "touchz":
+	        if(!this.get('path')){
+	           flag = false;
+	    	}
+	    	break;
+	    	case "chmod":
+	        if(!this.get('path') || !this.get('permissions')){
+	           flag = false;
+	    	}
+	    	break;
+	    	case "chgrp":
+	        if(!this.get('path') || !this.get('group')){
+	           flag = false;
+	    	}
+	    	break;
+	    	case "move":
+	        if(!this.get('source') || !this.get('target')){
+	           flag = false;
+	    	}
+	    	break; 
+  	    }
+  	    return flag;
   },
   actions : {
     onPrepareTypeChange (value) {

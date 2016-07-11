@@ -61,7 +61,7 @@ export default Ember.Component.extend(EmberValidations, {
       this.set(this.get('filePathModel'), fileName);
     }.bind(this));
     this.sendAction('register','javaAction', this);
-    //this.set('clonedActionModel',Ember.copy(this.get('actionModel')));
+    this.set('clonedActionModel',Ember.copy(this.get('actionModel')));
   }.on('didInsertElement'),
   observeError :function(){
     if(this.$('#collapseOne label.text-danger').length > 0 && !this.$('#collapseOne').hasClass("in")){
