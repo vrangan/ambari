@@ -73,7 +73,9 @@ export default Ember.Component.extend(EmberValidations,{
   }.on('willDestroyElement'),
 
   addPrepare : function (){
+
   	let value = this.get("prepareType");
+  	if(this.validateOperations(value)){
   	    switch (value) {
   	    	case "mkdir":
   	    	case "delete":
@@ -90,6 +92,7 @@ export default Ember.Component.extend(EmberValidations,{
 	      		this.get('fsOps').pushObject({settings:{source:this.get('source'),target:this.get('target')}, type:value});
 	    	break; 
   	    }
+  	}
       console.log("---------prepare-----------");
       console.log(this.get('fsOps'));
       this.resetFields();

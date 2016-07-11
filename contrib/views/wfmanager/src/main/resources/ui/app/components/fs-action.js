@@ -16,7 +16,7 @@
  */
 
 import Ember from 'ember';
-import EmberValidations from 'ember-validations';
+import EmberValidations,{ validator } from 'ember-validations';
 
 export default Ember.Component.extend(EmberValidations, {
   fileBrowser : Ember.inject.service('file-browser'),
@@ -42,7 +42,7 @@ export default Ember.Component.extend(EmberValidations, {
       this.$('#collapseOne').collapse('show');
     }
   }.on('didUpdate'),
-  validations : {
+  //validations : {
      // 'actionModel.mainClass': {
      //   presence: {
      //     'message' : 'You need to provide a value for Main Class',
@@ -53,7 +53,57 @@ export default Ember.Component.extend(EmberValidations, {
      //      message: 'You need to provide a valid value'
      //    }
       // }
+  //},
+
+  validations : {
+    'actionModel': {
+      inline : validator(function() {
+      var isValidated = true, msg = "";
+      console.log(this.get('actionModel'));
+      if(!this.get('actionModel.fsOps')){
+        return;
+      }
+      this.get('actionModel.fsOps').forEach(function(item, index){
+      console.log("item is ");
+      console.log(item);
+
+  	    switch (item.type) {
+  	    	case "mkdir":
+  	    	case "delete":
+  	    	case "touchz":
+	        if(!item.settings.path){
+	           isValidated = false;
+	           msg="path is mandatory";
+	    	}
+	    	break;
+	    	case "chmod":
+	        if(!item.settings.path || !item.settings.permissions){
+	           isValidated = false;
+	           msg="path and permissions are mandatory";
+	    	}
+	    	break;
+	    	case "chgrp":
+	        if(!item.settings.path || !item.settings.group){
+	           isValidated = false;
+	           msg="path and group are mandatory";
+	    	}
+	    	break;
+	    	case "move":
+	        if(!item.settings.source || !item.settings.target){
+	           isValidated = false;
+	           msg="source and target are mandatory";
+	    	}
+	    	break; 
+  	    }
+      });
+      if(!isValidated){
+        return msg;
+      }
+
+    })
+    }
   },
+
   actions : {
     openFileBrowser(model, context){
       if(undefined === context){
