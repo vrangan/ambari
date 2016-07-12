@@ -221,9 +221,13 @@ var SLAMapper= Ember.Object.extend({
         if (sla.maxDuration){
           slaInfo["max-duration"]="${"+sla.maxDuration.time+ "*"+sla.maxDuration.unit+"}";
         }
+        if (sla.alertEvents){
+          slaInfo["alert-events"]=sla.alertEvents;
+        }
         if (sla.alertContact){
           slaInfo["alert-contact"]=sla.alertContact;
         }
+
     }
     return nodeObj;
   },
@@ -232,6 +236,8 @@ var SLAMapper= Ember.Object.extend({
     if (infoJson["nominal-time"]){
        sla.nominalTime=infoJson["nominal-time"];
     }
+    sla.alertContact=infoJson["alert-contact"];
+    sla.alertEvents=infoJson["alert-events"];
     this.processTimePeriods(sla,infoJson,"should-start","shouldStart");
     this.processTimePeriods(sla,infoJson,"should-end","shouldEnd");
     this.processTimePeriods(sla,infoJson,"max-duration","maxDuration");
