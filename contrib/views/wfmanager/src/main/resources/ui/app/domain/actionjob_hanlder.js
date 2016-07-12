@@ -340,6 +340,9 @@ var FSActionJobHandler=ActionJobHandler.extend({
   },
   handle(nodeDomain,nodeObj,nodeName){
     this._super(nodeDomain,nodeObj,nodeName);
+    if (!nodeDomain.fsOps){
+      return;
+    }
     nodeDomain.fsOps.forEach(function(fsop){
       if (!nodeObj.fs[fsop.type]){
         nodeObj.fs[fsop.type]=[];
@@ -352,7 +355,10 @@ var FSActionJobHandler=ActionJobHandler.extend({
           nodeObj.fs["mkdir"].push({"_path":fsop.settings.path});
           break;
         case "move":
-          nodeObj.fs["move"].push({"_path":fsop.settings.path});
+          nodeObj.fs["move"].push({"_source":fsop.settings.source,"_target":fsop.settings.target});
+          break;
+        case "touchz":
+          nodeObj.fs["touchz"].push({"_path":fsop.settings.path});
           break;
         case "chmod":
           var conf={"_path":fsop.settings.path,"_permissions":fsop.settings.permissions,"_dir-files":fsop.settings.dirfiles};
@@ -360,20 +366,65 @@ var FSActionJobHandler=ActionJobHandler.extend({
             conf["recursive"]="";
           }
           nodeObj.fs["chmod"].push(conf);
-        case "touchz":
-          nodeObj.fs["touchz"].push({"_path":fsop.settings.path});
+          break;
         case "chgrp":
-          var conf={"_path":fsop.settings.path,"_group":fsop.settings.permissions,"_dir-files":fsop.settings.dirfiles};
+          var conf={"_path":fsop.settings.path,"_group":fsop.settings.group,"_dir-files":fsop.settings.dirfiles};
           if (fsop.settings.recursive){
             conf["recursive"]="";
           }
           nodeObj.fs["chgrp"].push(conf);
+          break;
         default:
       }
     });
   },
   handleImport(actionNode,json){
     this._super(actionNode,json);
+    var commandKeys=["delete","mkdir","move","chmod","touchz","chgrp"];
+    var fsOps=actionNode.domain.fsOps=[];
+    Object.keys(json).forEach(function(key){
+      if (commandKeys.contains(key)){
+        var fileOpsJson=null;
+        if (!Ember.isArray(json[key])){
+          fileOpsJson=[json[key]];
+        }else{
+          fileOpsJson=json[key];
+        }
+        fileOpsJson.forEach(function (fileOpJson) {
+          var fsConf={};
+          fsOps.push(fsConf);
+          fsConf.type=key;
+          var settings=fsConf.settings={};
+          switch (key) {
+            case "delete":
+              settings.path=fileOpJson._path;
+              break;
+            case "mkdir":
+              settings.path=fileOpJson._path;
+              break;
+            case "touchz":
+              settings.path=fileOpJson._path;
+              break;
+            case "move":
+              settings.source=fileOpJson._source;
+              settings.target=fileOpJson._target;
+              break;
+            case "chmod":
+              settings.path=fileOpJson._path;
+              settings.permissions=fileOpJson._permissions;
+              settings.dirfiles=fileOpJson["_dir-files"];
+              settings.recursive=fileOpJson["recursive"]?true:false;
+              break;
+            case "chgrp":
+              settings.path=fileOpJson._path;
+              settings.group=fileOpJson._group;
+              settings.dirfiles=fileOpJson["_dir-files"];
+              settings.recursive=fileOpJson["recursive"]?true:false;
+              break;
+          }
+        });
+      }
+    });
   }
 });
 export{ActionJobHandler,JavaActionJobHandler,PigActionJobHandler,HiveActionJobHandler,SqoopActionJobHandler,ShellActionJobHandler, EmailActionJobHandler,SparkActionJobHandler,MapRedActionJobHandler, Hive2ActionJobHandler, SubWFActionJobHandler, DistCpJobHandler, SshActionJobHandler, FSActionJobHandler};

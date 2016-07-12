@@ -729,6 +729,7 @@ input:invalid {
 }
 
 #action_properties_dialog .modal-dialog,
+#workflow_sla_dialog .modal-dialog,
 #global_properties_dialog .modal-dialog {
     width: 800px;
 }
@@ -741,6 +742,7 @@ input:invalid {
 
 #action_properties_dialog .panel-default > .panel-heading,
 #global_properties_dialog .panel-default > .panel-heading,
+#workflow_sla_dialog .panel-default > .panel-heading,
 #configureWorkfowModal .panel-default > .panel-heading,
  .whiteLabel, .whiteLabel:hover, .whiteLabel:focus, .whiteLabel:visited, .whiteLabel:active {
     background-color: #5bb75b;
@@ -1356,5 +1358,5 @@ background: #fff;
     padding-left:35px !important;
 }
 .file-op-setting{
-   padding-left: 105px; 
+   padding-left: 105px;
 }
