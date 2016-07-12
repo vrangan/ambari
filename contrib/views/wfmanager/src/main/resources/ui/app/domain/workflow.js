@@ -164,6 +164,7 @@ var Workflow= Ember.Object.extend(FindNodeMixin,{
     }
     var generatedNode=this.generatedNode(computedTarget,type);
     transition.targetNode=generatedNode;
+    return generatedNode;
   },
   deleteKillNode(node){
     let killNodes = this.get("killNodes");

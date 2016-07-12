@@ -417,12 +417,17 @@ export default Ember.Component.extend(EmberValidations,{
     addNode(type){
       var currentTransition=this.get("currentTransition");
       //this.get("workflow").addNode(currentTransition.startNode,currentTransition.endNode,type);
-      this.get("workflow").addNode(currentTransition,type);
+      var newNode=this.get("workflow").addNode(currentTransition,type);
       this.rerender();
       if(currentTransition.targetNode.isPlaceholder()){
         this.designerPlumb.remove(currentTransition.targetNode.id);
       }
       this.doValidation();
+      console.log("new node==",newNode);
+      setTimeout(function () {
+          this.$("#"+newNode.id)[0].scrollIntoView();
+      }, 50);
+
     },
     nameChanged(){
       this.doValidation();
